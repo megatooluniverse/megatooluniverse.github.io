@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>MegaToolUniverse - All Internet Tools in One Place</title>
+    <meta name="description" content="A fast, modern, premium all-in-one tools platform. Access AI, Social Media, Utility, and Student tools instantly.">
+    <meta name="keywords" content="tools hub, AI tools, online utilities, web app, MegaToolUniverse">
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1a1a2e">
+
+    <style>
+        /* --- CSS VARIABLES & THEMES --- */
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-main: #ffffff;
+            --text-muted: #a0a0b5;
+            --accent: #ff007f;
+            --accent-glow: rgba(255, 0, 127, 0.5);
+            --card-hover: rgba(255, 255, 255, 0.1);
+            --panel-bg: rgba(15, 12, 41, 0.95);
+        }
+
+        [data-theme="light"] {
+            --bg-gradient: linear-gradient(135deg, #fdfbfb, #ebedee, #e0c3fc);
+            --glass-bg: rgba(255, 255, 255, 0.6);
+            --glass-border: rgba(0, 0, 0, 0.1);
+            --text-main: #1a1a2e;
+            --text-muted: #4a4a5e;
+            --panel-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        /* --- GLOBAL RESET & TYPOGRAPHY --- */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
+        body {
+            background: var(--bg-gradient);
+            background-attachment: fixed;
+            color: var(--text-main);
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        /* Animated Background Elements */
+        .bg-blobs { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1; overflow: hidden; pointer-events: none;}
+        .blob { position: absolute; filter: blur(80px); opacity: 0.5; border-radius: 50%; animation: float 10s infinite alternate ease-in-out;}
+        .blob-1 { width: 300px; height: 300px; background: #ff007f; top: 10%; left: 20%; }
+        .blob-2 { width: 400px; height: 400px; background: #00f0ff; bottom: 10%; right: 10%; animation-delay: -5s;}
+        @keyframes float { 0% { transform: translate(0, 0); } 100% { transform: translate(50px, 50px); } }
+
+        /* --- GLASSMORPHISM UTILITIES --- */
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+        }
+
+        /* --- NAVBAR --- */
+        header {
+            position: fixed; top: 0; width: 100%; height: 70px; z-index: 100;
+            display: flex; justify-content: space-between; align-items: center; padding: 0 20px;
+            border-radius: 0 0 16px 16px;
+        }
+        .logo { font-size: 1.2rem; font-weight: bold; letter-spacing: 1px; }
+        .search-container { position: relative; width: 40%; max-width: 400px; }
+        .search-container input {
+            width: 100%; padding: 10px 15px; border-radius: 20px; border: none;
+            background: var(--glass-bg); color: var(--text-main); outline: none;
+            border: 1px solid var(--glass-border);
+        }
+        .search-container input::placeholder { color: var(--text-muted); }
+        .menu-btn { font-size: 1.5rem; cursor: pointer; background: none; border: none; color: var(--text-main); }
+        .kbd-shortcut { position: absolute; right: 10px; top: 10px; font-size: 0.7rem; color: var(--text-muted); pointer-events: none;}
+
+        /* --- SIDEBAR --- */
+        .sidebar {
+            position: fixed; top: 0; right: -300px; width: 280px; height: 100vh; z-index: 1000;
+            padding: 20px; transition: right 0.3s ease; display: flex; flex-direction: column; gap: 10px;
+        }
+        .sidebar.active { right: 0; }
+        .close-btn { align-self: flex-end; cursor: pointer; font-size: 1.5rem; }
+        .sidebar a { color: var(--text-main); text-decoration: none; padding: 12px; border-radius: 8px; transition: 0.2s; }
+        .sidebar a:hover { background: var(--card-hover); }
+        .sidebar-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.5); backdrop-filter: blur(5px); z-index: 999; display: none; }
+        .sidebar-overlay.active { display: block; }
+
+        /* --- MAIN LAYOUT --- */
+        main { padding: 90px 20px 80px 20px; max-width: 1200px; margin: 0 auto; }
+        .section-title { font-size: 1.2rem; margin: 20px 0 15px; color: var(--text-main); border-bottom: 1px solid var(--glass-border); padding-bottom: 5px;}
+        
+        .categories-filter { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; scrollbar-width: none; }
+        .categories-filter::-webkit-scrollbar { display: none; }
+        .cat-btn { padding: 8px 16px; border-radius: 20px; border: 1px solid var(--glass-border); background: var(--glass-bg); color: var(--text-main); cursor: pointer; white-space: nowrap; transition: 0.2s;}
+        .cat-btn.active, .cat-btn:hover { background: var(--accent); border-color: var(--accent); color: #fff;}
+
+        /* --- TOOLS GRID --- */
+        .tools-grid { display: grid; gap: 15px; }
+        
+        /* Mobile: 2 per row */
+        @media (max-width: 767px) { .tools-grid { grid-template-columns: repeat(2, 1fr); } }
+        /* Desktop: 4 per row */
+        @media (min-width: 768px) { .tools-grid { grid-template-columns: repeat(4, 1fr); } }
+
+        .tool-card {
+            aspect-ratio: 1 / 1; padding: 15px; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            text-align: center; cursor: pointer; transition: transform 0.2s ease, background 0.2s ease;
+            position: relative; user-select: none; -webkit-user-select: none;
+        }
+        .tool-card:hover { transform: translateY(-5px); background: var(--card-hover); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }
+        .tool-icon { font-size: 2.5rem; margin-bottom: 10px; }
+        .tool-name { font-weight: bold; font-size: 0.9rem; margin-bottom: 5px; }
+        .tool-desc { font-size: 0.7rem; color: var(--text-muted); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .tool-uses { position: absolute; bottom: 8px; font-size: 0.65rem; color: var(--text-muted); }
+
+        /* --- LONG PRESS MENU --- */
+        .context-menu {
+            position: fixed; z-index: 2000; display: none; flex-direction: column; gap: 5px; padding: 10px; min-width: 150px;
+        }
+        .context-menu.active { display: flex; }
+        .context-menu button { background: none; border: none; color: var(--text-main); padding: 8px; text-align: left; cursor: pointer; border-radius: 5px; width: 100%;}
+        .context-menu button:hover { background: var(--card-hover); }
+
+        /* --- APP MODAL / PANEL --- */
+        .tool-panel {
+            position: fixed; top: 100%; left: 0; width: 100vw; height: 100vh; z-index: 1500;
+            background: var(--panel-bg); backdrop-filter: blur(20px); transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            display: flex; flex-direction: column;
+        }
+        .tool-panel.active { top: 0; }
+        .panel-header { display: flex; justify-content: space-between; align-items: center; padding: 15px 20px; border-bottom: 1px solid var(--glass-border); }
+        .back-btn { padding: 8px 15px; border-radius: 8px; border: none; background: var(--accent); color: #fff; cursor: pointer; font-weight: bold;}
+        .iframe-container { flex: 1; width: 100%; background: #fff; /* White bg for tools inside iframe to render properly */}
+        iframe { width: 100%; height: 100%; border: none; }
+
+        /* --- MODAL (LEGAL/ABOUT) --- */
+        .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.8); z-index: 2000; display: none; justify-content: center; align-items: center; padding: 20px; }
+        .modal-content { max-width: 600px; width: 100%; padding: 30px; border-radius: 16px; position: relative; max-height: 80vh; overflow-y: auto;}
+        .modal.active { display: flex; }
+
+        /* --- FAB & COMMAND PALETTE --- */
+        .fab { position: fixed; bottom: 80px; right: 20px; width: 50px; height: 50px; border-radius: 50%; background: var(--accent); color: #fff; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; cursor: pointer; z-index: 100; box-shadow: 0 0 15px var(--accent-glow); border: none;}
+        
+        .cmd-palette { position: fixed; top: 20%; left: 50%; transform: translateX(-50%); width: 90%; max-width: 500px; z-index: 2000; padding: 20px; display: none; }
+        .cmd-palette.active { display: block; }
+        .cmd-palette input { width: 100%; padding: 15px; border-radius: 8px; border: 1px solid var(--glass-border); background: transparent; color: var(--text-main); font-size: 1.1rem; outline: none; margin-bottom: 10px;}
+        .cmd-results { max-height: 300px; overflow-y: auto; display: flex; flex-direction: column; gap: 5px; }
+        .cmd-item { padding: 10px; cursor: pointer; border-radius: 8px; }
+        .cmd-item:hover { background: var(--card-hover); }
+
+        /* --- MOBILE DOCK --- */
+        .mobile-dock {
+            position: fixed; bottom: 0; left: 0; width: 100%; height: 60px; z-index: 100;
+            display: flex; justify-content: space-around; align-items: center; border-radius: 16px 16px 0 0;
+            border-top: 1px solid var(--glass-border);
+        }
+        @media (min-width: 768px) { .mobile-dock, .fab { display: none; } }
+        .dock-item { display: flex; flex-direction: column; align-items: center; color: var(--text-main); text-decoration: none; font-size: 0.7rem; gap: 4px; cursor: pointer;}
+        .dock-item span:first-child { font-size: 1.2rem; }
+
+        /* --- FOOTER --- */
+        footer { padding: 40px 20px; text-align: center; border-top: 1px solid var(--glass-border); margin-top: 40px;}
+        .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 15px; margin: 20px 0; }
+        .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; cursor: pointer;}
+        .footer-links a:hover { color: var(--accent); }
+    </style>
+</head>
+<body>
+
+    <div class="bg-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+    </div>
+
+    <header class="glass">
+        <div class="logo">🚀 MegaToolUniverse</div>
+        <div class="search-container">
+            <input type="text" id="liveSearch" placeholder="Search tools...">
+            <span class="kbd-shortcut">Ctrl+K</span>
+        </div>
+        <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+    </header>
+
+    <div class="sidebar-overlay" onclick="toggleSidebar()"></div>
+    <div class="sidebar glass" id="sidebar">
+        <div class="close-btn" onclick="toggleSidebar()">×</div>
+        <a href="#" onclick="renderCategory('All')">🏠 Home</a>
+        <a href="#pinned" onclick="scrollToSection('pinned')">📌 Pinned Tools</a>
+        <a href="#saved" onclick="scrollToSection('saved')">⭐ Saved Tools</a>
+        <a href="#recent" onclick="scrollToSection('recent')">🕒 Recently Used</a>
+        <a href="#" onclick="openRandomTool()">🎲 Random Tool</a>
+        <a href="#" onclick="toggleDarkMode()">🌗 Toggle Dark Mode</a>
+        <hr style="border-color: var(--glass-border); margin: 10px 0;">
+        <a href="#" onclick="openModal('about')">ℹ️ About</a>
+        <a href="#" onclick="openModal('contact')">✉️ Contact</a>
+    </div>
+
+    <main>
+        <div class="categories-filter" id="categoryFilter">
+            <button class="cat-btn active" onclick="renderCategory('All', this)">All</button>
+            <button class="cat-btn" onclick="renderCategory('Social Media', this)">Social Media</button>
+            <button class="cat-btn" onclick="renderCategory('Utility', this)">Utility</button>
+            <button class="cat-btn" onclick="renderCategory('Student', this)">Student</button>
+            <button class="cat-btn" onclick="renderCategory('AI', this)">AI</button>
+            <button class="cat-btn" onclick="renderCategory('Fun', this)">Fun</button>
+        </div>
+
+        <h2 class="section-title" id="pinned-title" style="display:none;">📌 Pinned Tools</h2>
+        <div class="tools-grid" id="pinned-grid"></div>
+
+        <h2 class="section-title" id="main-title">🔥 All Tools</h2>
+        <div class="tools-grid" id="main-grid">
+            </div>
+
+        <h2 class="section-title">🕒 Recently Used</h2>
+        <div class="tools-grid" id="recent-grid"></div>
+    </main>
+
+    <div class="tool-panel" id="toolPanel">
+        <div class="panel-header glass">
+            <h3 id="panelToolName">Tool Name</h3>
+            <button class="back-btn" onclick="closeTool()">← Back to Tools</button>
+        </div>
+        <div class="iframe-container">
+            <iframe id="toolIframe" src=""></iframe>
+        </div>
+    </div>
+
+    <div class="context-menu glass" id="contextMenu">
+        <button id="ctxSave">⭐ Save Tool</button>
+        <button id="ctxPin">📌 Pin Tool</button>
+        <button id="ctxCopy">📋 Copy Link</button>
+    </div>
+
+    <div class="cmd-palette glass" id="cmdPalette">
+        <input type="text" id="cmdInput" placeholder="Type to search...">
+        <div class="cmd-results" id="cmdResults"></div>
+    </div>
+
+    <button class="fab" onclick="document.getElementById('liveSearch').focus()">🔍</button>
+
+    <div class="mobile-dock glass">
+        <a class="dock-item" onclick="renderCategory('All')"><span>🏠</span><span>Home</span></a>
+        <a class="dock-item" onclick="document.getElementById('liveSearch').focus()"><span>🔍</span><span>Search</span></a>
+        <a class="dock-item" onclick="scrollToSection('saved')"><span>⭐</span><span>Saved</span></a>
+        <a class="dock-item" onclick="toggleSidebar()"><span>☰</span><span>Menu</span></a>
+    </div>
+
+    <div class="modal" id="infoModal">
+        <div class="modal-content glass">
+            <span class="close-btn" style="position:absolute; top:15px; right:20px;" onclick="closeModal()">×</span>
+            <h2 id="modalTitle">Title</h2>
+            <br>
+            <div id="modalBody">Content goes here.</div>
+        </div>
+    </div>
+
+    <footer>
+        <h2>MegaToolUniverse</h2>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">"All Internet Tools in One Place"</p>
+        <div class="footer-links">
+            <a onclick="openModal('privacy')">Privacy Policy</a>
+            <a onclick="openModal('terms')">Terms of Use</a>
+            <a onclick="openModal('disclaimer')">Disclaimer</a>
+            <a onclick="openModal('contact')">Contact</a>
+        </div>
+        <p style="color: var(--text-muted); font-size: 0.8rem;">© 2026 MegaToolUniverse. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // --- 1. TOOL DATA (34 Tools) ---
+        // I have categorized and assigned emojis to make them fit the aesthetic perfectly.
+        const toolsData = [
+            { id: "tweetgen", name: "Tweet Gen Pro", desc: "Generate realistic fake tweets.", url: "https://megatooluniverse.github.io/TweetGenPro/", cat: "Social Media", icon: "🐦", uses: "12,450" },
+            { id: "instagen", name: "Insta Gen Pro", desc: "Create fake Insta posts.", url: "https://megatooluniverse.github.io/InstaGenPro/", cat: "Social Media", icon: "📸", uses: "18,200" },
+            { id: "fakeprof", name: "Fake Profile", desc: "Simulate followers & profiles.", url: "https://megatooluniverse.github.io/FakeFollowerandProfile/", cat: "Social Media", icon: "👥", uses: "9,800" },
+            { id: "lockgen", name: "Lock Gen Pro", desc: "Generate lock screen designs.", url: "https://megatooluniverse.github.io/LockGenPro/", cat: "Utility", icon: "📱", uses: "5,340" },
+            { id: "textutils", name: "Text Utils Pro", desc: "Format, convert, and count text.", url: "https://megatooluniverse.github.io/TextUtilsPro/", cat: "Utility", icon: "📝", uses: "22,100" },
+            { id: "agecalc", name: "Age Reality Cal", desc: "Deep dive into your exact age.", url: "https://megatooluniverse.github.io/AgeRealityCal/", cat: "Utility", icon: "⏳", uses: "8,900" },
+            { id: "firdraft", name: "FIR Draft Pro", desc: "Draft professional FIR formats.", url: "https://megatooluniverse.github.io/FIRDraftPro/", cat: "Utility", icon: "⚖️", uses: "2,400" },
+            { id: "satirenews", name: "Satire News Gen", desc: "Generate funny fake news articles.", url: "https://megatooluniverse.github.io/SatireNewsGen/", cat: "Fun", icon: "📰", uses: "14,500" },
+            { id: "mockmc", name: "Mock MC Gen", desc: "Create mock medical certificates.", url: "https://megatooluniverse.github.io/MockMCGen/", cat: "Fun", icon: "🩺", uses: "1,200" },
+            { id: "funcert", name: "Fun Certificate", desc: "Generate hilarious certificates.", url: "https://megatooluniverse.github.io/PFunCertificateGen/", cat: "Fun", icon: "📜", uses: "6,700" },
+            { id: "vippass", name: "VIP Pass Gen", desc: "Create realistic VIP passes.", url: "https://megatooluniverse.github.io/VIPPassGenPro/", cat: "Fun", icon: "🎟️", uses: "7,800" },
+            { id: "securetool", name: "Secure Gen", desc: "Password and security tools.", url: "https://megatooluniverse.github.io/SecureGentools/", cat: "Utility", icon: "🔒", uses: "19,300" },
+            { id: "devcoderun", name: "Dev Studio Pro", desc: "Run code directly in browser.", url: "https://megatooluniverse.github.io/DevStudioProCoderun/", cat: "Utility", icon: "💻", uses: "25,000" },
+            { id: "smartpdf", name: "Smart Student PDF", desc: "Merge, split, compress PDFs.", url: "https://megatooluniverse.github.io/SmartStudentPDF/", cat: "Student", icon: "📑", uses: "34,200" },
+            { id: "balancedes", name: "Balance Designer", desc: "Design financial balance sheets.", url: "https://megatooluniverse.github.io/SampleBalanceDesigner/", cat: "Utility", icon: "💰", uses: "4,100" },
+            { id: "studentai", name: "Student AI", desc: "AI assistant for homework & study.", url: "https://megatooluniverse.github.io/StudentAI/", cat: "AI", icon: "🤖", uses: "45,000" },
+            { id: "resultgen", name: "Result Generator", desc: "Generate mock exam results.", url: "https://megatooluniverse.github.io/ResultGenerator/", cat: "Student", icon: "🎓", uses: "11,500" },
+            { id: "photosheet", name: "Photo Sheet Max", desc: "Passport photo sheet creator.", url: "https://megatooluniverse.github.io/PhotoSheetProMax/", cat: "Utility", icon: "🖼️", uses: "18,900" },
+            { id: "imagemaster", name: "Image Master Pro", desc: "Advanced image editing tools.", url: "https://megatooluniverse.github.io/ImageMasterPro/", cat: "Utility", icon: "🎨", uses: "21,400" },
+            { id: "quickqr", name: "Quick QR Pro", desc: "Generate custom QR codes instantly.", url: "https://megatooluniverse.github.io/QuickQRPro/", cat: "Utility", icon: "🔲", uses: "28,700" },
+            { id: "appgen", name: "Application Gen", desc: "Write formal applications quickly.", url: "https://megatooluniverse.github.io/ApplicationGenPro/", cat: "Student", icon: "📄", uses: "9,600" },
+            { id: "legacycard", name: "Legacy Card Gen", desc: "Retro style card generator.", url: "https://megatooluniverse.github.io/LegacyCardGen/", cat: "Fun", icon: "🎴", uses: "3,200" },
+            { id: "countdown", name: "Time Countdown", desc: "Track time until your events.", url: "https://megatooluniverse.github.io/TimeUntilCountdown/", cat: "Utility", icon: "⏱️", uses: "5,800" },
+            { id: "invite", name: "Event Invite Maker", desc: "Design beautiful event invites.", url: "https://megatooluniverse.github.io/EventInviteMaker/", cat: "Utility", icon: "✉️", uses: "7,400" },
+            { id: "govletter", name: "Gov Letter Sample", desc: "Sample fake letter generator.", url: "https://megatooluniverse.github.io/SAMPLE-GOVERNMENT-LETTERGENERATOR-NOT-REAL/", cat: "Fun", icon: "🏛️", uses: "4,300" },
+            { id: "awardcard", name: "Award Card Gen", desc: "Create custom award certificates.", url: "https://megatooluniverse.github.io/AwardCardGenerator/", cat: "Fun", icon: "🏆", uses: "3,800" },
+            { id: "wedding", name: "Wedding Card Maker", desc: "Design digital wedding invites.", url: "https://megatooluniverse.github.io/WeddingCardMaker/", cat: "Utility", icon: "💒", uses: "9,100" },
+            { id: "hacker", name: "Hacker Terminal", desc: "Prank friends with a mock terminal.", url: "https://megatooluniverse.github.io/HackerTerminalMock/", cat: "Fun", icon: "⌨️", uses: "16,200" },
+            { id: "cartoon", name: "Cartoon Notice", desc: "Generate cartoon style notices.", url: "https://megatooluniverse.github.io/CartoonNoticeMaker/", cat: "Fun", icon: "🤡", uses: "2,900" },
+            { id: "ultadimag", name: "Ulta Dimag Bazar", desc: "A chaotic, funny puzzle tool.", url: "https://megatooluniverse.github.io/UltaDimagBazar/", cat: "Fun", icon: "🧠", uses: "1,500" },
+            { id: "neuralsync", name: "Neural SYNC", desc: "AI frequency visualizer.", url: "https://megatooluniverse.github.io/NeuralSYNC/", cat: "AI", icon: "⚡", uses: "8,400" },
+            { id: "samosa", name: "Samosa Roulette", desc: "Who pays for the snacks?", url: "https://megatooluniverse.github.io/Samosa-Roulette-Kaun-Banega-Bakra/", cat: "Fun", icon: "🥟", uses: "10,000" },
+            { id: "scratch", name: "Secret Scratch", desc: "Digital scratch card generator.", url: "https://megatooluniverse.github.io/SecretScratchCard/", cat: "Fun", icon: "🎫", uses: "6,600" },
+            { id: "surprise", name: "Pack Surprise", desc: "Send a digital wrapped gift.", url: "https://megatooluniverse.github.io/PackSurpriseGift/", cat: "Fun", icon: "🎁", uses: "7,100" }
+        ];
+
+        // --- 2. STATE MANAGEMENT (LocalStorage) ---
+        let pinnedTools = JSON.parse(localStorage.getItem('mtu_pinned')) || [];
+        let savedTools = JSON.parse(localStorage.getItem('mtu_saved')) || [];
+        let recentTools = JSON.parse(localStorage.getItem('mtu_recent')) || [];
+
+        // --- 3. RENDERING LOGIC ---
+        function createCard(tool) {
+            const isPinned = pinnedTools.includes(tool.id);
+            const isSaved = savedTools.includes(tool.id);
+            
+            const card = document.createElement('div');
+            card.className = 'tool-card glass';
+            card.innerHTML = `
+                <div class="tool-icon">${tool.icon}</div>
+                <div class="tool-name">${tool.name} ${isPinned ? '📌' : ''}</div>
+                <div class="tool-desc">${tool.desc}</div>
+                <div class="tool-uses">👁 ${tool.uses} uses</div>
+            `;
+            
+            // Standard Click -> Open Tool
+            card.addEventListener('click', (e) => {
+                if(longPressTriggered) return;
+                window.location.hash = tool.id;
+            });
+
+            // Long Press Logic (4-5 Seconds)
+            let pressTimer;
+            let longPressTriggered = false;
+
+            const startPress = (e) => {
+                longPressTriggered = false;
+                pressTimer = setTimeout(() => {
+                    longPressTriggered = true;
+                    showContextMenu(e, tool);
+                }, 4000); // 4000ms = 4 seconds as requested
+            };
+
+            const cancelPress = () => clearTimeout(pressTimer);
+
+            card.addEventListener('mousedown', startPress);
+            card.addEventListener('touchstart', startPress, {passive: true});
+            card.addEventListener('mouseup', cancelPress);
+            card.addEventListener('mouseleave', cancelPress);
+            card.addEventListener('touchend', cancelPress);
+
+            return card;
+        }
+
+        function renderGrid(containerId, toolsArray) {
+            const container = document.getElementById(containerId);
+            container.innerHTML = '';
+            toolsArray.forEach(tool => container.appendChild(createCard(tool)));
+        }
+
+        function renderAll() {
+            // Main Grid
+            renderGrid('main-grid', toolsData);
+            
+            // Pinned
+            const pinned = toolsData.filter(t => pinnedTools.includes(t.id));
+            if(pinned.length > 0) {
+                document.getElementById('pinned-title').style.display = 'block';
+                renderGrid('pinned-grid', pinned);
+            } else {
+                document.getElementById('pinned-title').style.display = 'none';
+                document.getElementById('pinned-grid').innerHTML = '';
+            }
+
+            // Recent
+            const recent = recentTools.map(id => toolsData.find(t => t.id === id)).filter(Boolean);
+            renderGrid('recent-grid', recent.slice(0, 4)); // Show top 4 recent
+        }
+
+        // --- 4. TOOL OPENING SYSTEM (Hash Routing & SPA) ---
+        function openTool(toolId) {
+            const tool = toolsData.find(t => t.id === toolId);
+            if(!tool) return;
+
+            // Update Recent
+            recentTools = [toolId, ...recentTools.filter(id => id !== toolId)].slice(0, 10);
+            localStorage.setItem('mtu_recent', JSON.stringify(recentTools));
+            renderAll();
+
+            // Open Panel
+            document.getElementById('panelToolName').innerText = tool.name;
+            document.getElementById('toolIframe').src = tool.url;
+            document.getElementById('toolPanel').classList.add('active');
+        }
+
+        function closeTool() {
+            window.location.hash = '';
+            document.getElementById('toolPanel').classList.remove('active');
+            setTimeout(() => { document.getElementById('toolIframe').src = ''; }, 400);
+        }
+
+        window.addEventListener('hashchange', () => {
+            const hash = window.location.hash.replace('#', '');
+            if(hash) openTool(hash);
+            else closeTool();
+        });
+
+        // Initial check on load
+        if(window.location.hash) openTool(window.location.hash.replace('#', ''));
+
+        // --- 5. SEARCH & COMMAND PALETTE ---
+        const liveSearch = document.getElementById('liveSearch');
+        liveSearch.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const filtered = toolsData.filter(t => t.name.toLowerCase().includes(query) || t.cat.toLowerCase().includes(query));
+            renderGrid('main-grid', filtered);
+        });
+
+        const cmdInput = document.getElementById('cmdInput');
+        cmdInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            const results = document.getElementById('cmdResults');
+            results.innerHTML = '';
+            if(!query) return;
+
+            const filtered = toolsData.filter(t => t.name.toLowerCase().includes(query)).slice(0, 5);
+            filtered.forEach(t => {
+                const div = document.createElement('div');
+                div.className = 'cmd-item glass';
+                div.innerText = `${t.icon} ${t.name}`;
+                div.onclick = () => {
+                    document.getElementById('cmdPalette').classList.remove('active');
+                    window.location.hash = t.id;
+                };
+                results.appendChild(div);
+            });
+        });
+
+        // Ctrl + K Shortcut
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'k') {
+                e.preventDefault();
+                const cmd = document.getElementById('cmdPalette');
+                cmd.classList.toggle('active');
+                if(cmd.classList.contains('active')) cmdInput.focus();
+            }
+            if (e.key === 'Escape') {
+                document.getElementById('cmdPalette').classList.remove('active');
+                closeContextMenu();
+                closeModal();
+            }
+        });
+
+        // --- 6. CATEGORIES ---
+        function renderCategory(cat, btnElement = null) {
+            if(btnElement) {
+                document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+                btnElement.classList.add('active');
+            }
+            const filtered = cat === 'All' ? toolsData : toolsData.filter(t => t.cat === cat);
+            document.getElementById('main-title').innerText = cat === 'All' ? '🔥 All Tools' : `${cat} Tools`;
+            renderGrid('main-grid', filtered);
+            if(document.getElementById('sidebar').classList.contains('active')) toggleSidebar();
+        }
+
+        // --- 7. CONTEXT MENU (Long Press) ---
+        let currentContextTool = null;
+        function showContextMenu(event, tool) {
+            currentContextTool = tool;
+            const menu = document.getElementById('contextMenu');
+            menu.classList.add('active');
+            
+            // Positioning
+            let x = event.clientX || (event.touches && event.touches[0].clientX);
+            let y = event.clientY || (event.touches && event.touches[0].clientY);
+            
+            // Adjust if goes off screen
+            if (x + 150 > window.innerWidth) x = window.innerWidth - 160;
+            if (y + 150 > window.innerHeight) y = window.innerHeight - 160;
+
+            menu.style.left = `${x}px`;
+            menu.style.top = `${y}px`;
+
+            // Update button texts based on state
+            document.getElementById('ctxPin').innerText = pinnedTools.includes(tool.id) ? '❌ Unpin Tool' : '📌 Pin Tool';
+            document.getElementById('ctxSave').innerText = savedTools.includes(tool.id) ? '❌ Unsave Tool' : '⭐ Save Tool';
+        }
+
+        function closeContextMenu() { document.getElementById('contextMenu').classList.remove('active'); }
+        document.addEventListener('click', closeContextMenu);
+
+        // Context Menu Actions
+        document.getElementById('ctxPin').addEventListener('click', () => {
+            if(!currentContextTool) return;
+            if(pinnedTools.includes(currentContextTool.id)) pinnedTools = pinnedTools.filter(id => id !== currentContextTool.id);
+            else pinnedTools.push(currentContextTool.id);
+            localStorage.setItem('mtu_pinned', JSON.stringify(pinnedTools));
+            renderAll();
+        });
+
+        document.getElementById('ctxSave').addEventListener('click', () => {
+            if(!currentContextTool) return;
+            if(savedTools.includes(currentContextTool.id)) savedTools = savedTools.filter(id => id !== currentContextTool.id);
+            else savedTools.push(currentContextTool.id);
+            localStorage.setItem('mtu_saved', JSON.stringify(savedTools));
+        });
+
+        document.getElementById('ctxCopy').addEventListener('click', () => {
+            if(currentContextTool) {
+                const link = `${window.location.origin}${window.location.pathname}#${currentContextTool.id}`;
+                navigator.clipboard.writeText(link);
+                alert("Link Copied!");
+            }
+        });
+
+        // --- 8. UTILITIES ---
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+            document.getElementById('sidebar-overlay').classList.toggle('active');
+        }
+
+        function toggleDarkMode() {
+            const body = document.body;
+            if(body.getAttribute('data-theme') === 'light') body.removeAttribute('data-theme');
+            else body.setAttribute('data-theme', 'light');
+        }
+
+        function openRandomTool() {
+            const randomTool = toolsData[Math.floor(Math.random() * toolsData.length)];
+            window.location.hash = randomTool.id;
+            if(document.getElementById('sidebar').classList.contains('active')) toggleSidebar();
+        }
+
+        function scrollToSection(id) {
+            // Mock scrolling, usually navigates or filters in SPA
+            if(id === 'saved') {
+                const saved = toolsData.filter(t => savedTools.includes(t.id));
+                document.getElementById('main-title').innerText = '⭐ Saved Tools';
+                renderGrid('main-grid', saved);
+            }
+            if(document.getElementById('sidebar').classList.contains('active')) toggleSidebar();
+        }
+
+        // --- 9. LEGAL PAGES (MODAL) ---
+        const legalContent = {
+            privacy: { title: "Privacy Policy", body: "MegaToolUniverse does not collect personal data. All tools operate client-side or locally via LocalStorage." },
+            terms: { title: "Terms of Use", body: "By using this site, you agree to use the generated content responsibly. Some tools are for satire and fun only." },
+            disclaimer: { title: "Disclaimer", body: "Tools like 'Fake Government Letter' or 'VIP Pass' are strictly for entertainment and pranks. Do not use them illegally." },
+            about: { title: "About MegaToolUniverse", body: "Built to be the ultimate Internet Tools Operating System. Fast, responsive, and completely free." },
+            contact: { title: "Contact Us", body: "Drop us an email at contact@megatooluniverse.com or reach out via GitHub." }
+        };
+
+        function openModal(type) {
+            const modal = document.getElementById('infoModal');
+            document.getElementById('modalTitle').innerText = legalContent[type].title;
+            document.getElementById('modalBody').innerText = legalContent[type].body;
+            modal.classList.add('active');
+        }
+
+        function closeModal() { document.getElementById('infoModal').classList.remove('active'); }
+
+        // Init
+        renderAll();
+
+    </script>
+</body>
+</html>
