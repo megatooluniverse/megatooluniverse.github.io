@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    
+    <title>MegaToolUniverse - Premium All-in-One Internet Tools OS</title>
+    <meta name="description" content="MegaToolUniverse is your ultimate hub for 40+ premium internet tools. Access AI generators, student utilities, image editors, and fun games in a single, fast web app.">
+    <meta name="keywords" content="free online tools, AI tools, student tools, social media generators, image editors, web OS, MegaToolUniverse, utility tools, free web apps">
+    <meta name="author" content="MegaToolUniverse">
+    <meta name="robots" content="index, follow">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://megatooluniverse.github.io/">
+    <meta property="og:title" content="MegaToolUniverse - Premium All-in-One Internet Tools OS">
+    <meta property="og:description" content="Access 40+ premium free tools in one place. Everything you need, no downloads required.">
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <meta name="monetag" content="941261bbdb7ec1795fe342e02bc623a5">
+
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#1e1b4b">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* CSS VARIABLES & ADVANCED MULTI-COLOR THEMING */
+        :root {
+            --font-family: 'Inter', sans-serif;
+            /* Premium Dark Aurora Gradient */
+            --bg-gradient: linear-gradient(-45deg, #0f172a, #3b0764, #1e1b4b, #831843, #0c4a6e);
+            --text-main: #ffffff;
+            --text-muted: #cbd5e1;
+            --glass-bg: rgba(255, 255, 255, 0.04);
+            --glass-border: rgba(255, 255, 255, 0.08);
+            --glass-hover: rgba(255, 255, 255, 0.12);
+            --accent: #c084fc; /* Vibrant purple-cyan vibe */
+            --glow: rgba(192, 132, 252, 0.4);
+        }
+
+        .light-mode {
+            /* Smooth Premium Light Pastel Gradient */
+            --bg-gradient: linear-gradient(-45deg, #fdfbfb, #ebedee, #f3e7e9, #e3eeff);
+            --text-main: #0f172a;
+            --text-muted: #475569;
+            --glass-bg: rgba(255, 255, 255, 0.65);
+            --glass-border: rgba(0, 0, 0, 0.08);
+            --glass-hover: rgba(255, 255, 255, 0.9);
+            --accent: #9333ea;
+            --glow: rgba(147, 51, 234, 0.3);
+        }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-family); }
+        body { 
+            background: var(--bg-gradient); background-size: 300% 300%; 
+            animation: gradientBG 18s ease infinite; color: var(--text-main);
+            overflow-x: hidden; min-height: 100vh; display: flex; flex-direction: column;
+            transition: background 0.4s ease, color 0.4s ease;
+        }
+        @keyframes gradientBG { 0% {background-position: 0% 50%;} 50% {background-position: 100% 50%;} 100% {background-position: 0% 50%;} }
+
+        .glass {
+            background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border); border-radius: 16px; box-shadow: 0 8px 32px 0 rgba(0,0,0,0.2);
+        }
+        
+        header { 
+            position: sticky; top: 0; z-index: 40; padding: 1rem 2rem; 
+            display: flex; justify-content: space-between; align-items: center; 
+            border-radius: 0 0 20px 20px; border-top: none;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        .logo { font-size: 1.5rem; font-weight: 700; background: linear-gradient(to right, #c084fc, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.5px;}
+        .search-container { position: relative; width: 45%; max-width: 600px; }
+        .search-input { 
+            width: 100%; padding: 0.9rem 1rem 0.9rem 2.8rem; border-radius: 25px; border: 1px solid var(--glass-border);
+            background: var(--glass-bg); color: var(--text-main); outline: none; transition: 0.3s; font-size: 0.95rem;
+        }
+        .search-input:focus { border-color: var(--accent); background: var(--glass-hover); box-shadow: 0 0 20px var(--glow); }
+        .search-icon { position: absolute; left: 1.2rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
+        .search-results { position: absolute; top: 110%; left: 0; width: 100%; border-radius: 16px; display: none; z-index: 50; max-height: 350px; overflow-y: auto; }
+        
+        #sidebar { 
+            position: fixed; top: 0; right: -320px; width: 300px; height: 100vh; z-index: 60;
+            padding: 2rem 1rem 6rem 1rem; transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); 
+            border-radius: 20px 0 0 20px; overflow-y: auto; 
+        }
+        #sidebar.open { right: 0; box-shadow: -10px 0 40px rgba(0,0,0,0.5); }
+        .menu-item { display: block; padding: 1rem 1.2rem; margin-bottom: 0.5rem; border-radius: 12px; color: var(--text-main); text-decoration: none; transition: 0.3s; cursor: pointer; font-weight: 500;}
+        .menu-item:hover { background: var(--glass-hover); transform: translateX(5px); color: var(--accent); }
+        
+        main { padding: 2.5rem 2rem; flex: 1; margin-bottom: 80px; max-width: 1400px; margin-left: auto; margin-right: auto; width: 100%; }
+        .section-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--text-main); display: flex; align-items: center; gap: 0.6rem; letter-spacing: -0.5px;}
+        
+        /* ADVANCED GRID SYSTEM */
+        .tools-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; margin-bottom: 3rem; align-items: stretch; }
+        @media (min-width: 768px) { .tools-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; } }
+        @media (min-width: 1024px) { .tools-grid { grid-template-columns: repeat(4, 1fr); gap: 2rem; } }
+        
+        .tool-card {
+            padding: 1.8rem 1.5rem; text-align: center; cursor: pointer; transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex; flex-direction: column; justify-content: flex-start; align-items: center; position: relative;
+            user-select: none; -webkit-user-select: none; -webkit-touch-callout: none;
+            height: 100%; min-height: 230px; border-radius: 20px;
+        }
+        /* ADDING GLOW ON HOVER */
+        .tool-card:hover { transform: translateY(-8px); background: var(--glass-hover); box-shadow: 0 15px 35px var(--glow); border-color: var(--accent); }
+        .tool-card:active { transform: scale(0.97); }
+        .tool-icon { font-size: 2.8rem; margin-bottom: 1.2rem; color: var(--accent); transition: 0.4s; flex-shrink: 0; filter: drop-shadow(0 0 10px var(--glow));}
+        .tool-card:hover .tool-icon { transform: scale(1.15) rotate(5deg); }
+        
+        .tool-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.6rem; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .tool-desc { font-size: 0.85rem; color: var(--text-muted); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; margin-top: auto; line-height: 1.5;}
+        
+        .tool-uses { position: absolute; top: 12px; right: 12px; font-size: 0.7rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.3rem; background: rgba(0,0,0,0.3); padding: 4px 8px; border-radius: 12px; z-index: 2; font-weight: 500; border: 1px solid var(--glass-border);}
+        .light-mode .tool-uses { background: rgba(255,255,255,0.8); }
+        
+        /* Modals & Panels */
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); z-index: 100; display: none; justify-content: center; align-items: center; }
+        .tool-panel { width: 100vw; height: 100vh; position: fixed; bottom: -100vh; left: 0; z-index: 90; transition: bottom 0.5s cubic-bezier(0.25, 1, 0.5, 1); border-radius: 24px 24px 0 0; display: flex; flex-direction: column; background: var(--bg-gradient); }
+        .tool-panel.active { bottom: 0; box-shadow: 0 -15px 50px rgba(0,0,0,0.6); }
+        .tool-header { padding: 1.2rem 2.5rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--glass-border); background: var(--glass-bg); backdrop-filter: blur(12px); border-radius: 24px 24px 0 0;}
+        .btn-back { padding: 0.7rem 1.4rem; border-radius: 10px; border: none; background: var(--accent); color: white; cursor: pointer; font-weight: 600; transition: 0.3s; display: flex; align-items: center; gap: 0.6rem; }
+        .btn-back:hover { box-shadow: 0 0 15px var(--glow); transform: scale(1.05); }
+        
+        .iframe-wrapper { flex: 1; position: relative; width: 100%; background: #ffffff; border-radius: 0 0 24px 24px; overflow: hidden; }
+        .iframe-loading { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #000; font-weight: 600; display: flex; flex-direction: column; align-items: center; gap: 12px; z-index: 1; }
+        .iframe-container { position: relative; width: 100%; height: 100%; border: none; z-index: 2; background: transparent; }
+
+        .long-press-menu { width: 240px; padding: 0.8rem; display: flex; flex-direction: column; gap: 0.5rem; border-radius: 20px;}
+        .long-press-btn { padding: 0.9rem 1rem; border: none; background: transparent; color: var(--text-main); text-align: left; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 0.8rem; font-size: 1rem; transition: 0.3s; font-weight: 500;}
+        .long-press-btn:hover { background: var(--glass-hover); color: var(--accent); padding-left: 1.5rem; }
+
+        #cmd-palette { max-width: 600px; width: 90%; align-self: flex-start; margin-top: 15vh; padding: 1.5rem; border-radius: 24px;}
+        
+        .fab { position: fixed; bottom: 2.5rem; right: 2.5rem; width: 65px; height: 65px; border-radius: 50%; background: var(--accent); color: white; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; cursor: pointer; box-shadow: 0 8px 25px var(--glow); z-index: 30; transition: 0.4s; }
+        .fab:hover { transform: scale(1.15) rotate(15deg); }
+        
+        .mobile-dock { position: fixed; bottom: 0; left: 0; width: 100%; display: none; justify-content: space-around; padding: 1rem 1rem calc(1rem + env(safe-area-inset-bottom)); z-index: 40; border-radius: 24px 24px 0 0; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(20px); border-top: 1px solid rgba(255,255,255,0.1);}
+        .light-mode .mobile-dock { background: rgba(255, 255, 255, 0.8); border-top: 1px solid rgba(0,0,0,0.1);}
+        
+        @media (max-width: 767px) { 
+            .mobile-dock { display: flex; } 
+            .fab { bottom: 6.5rem; right: 1.2rem; width: 55px; height: 55px; font-size: 1.2rem;}
+            header { padding: 1rem; }
+            .search-container { display: none; } 
+            main { padding: 1.5rem 1rem; padding-bottom: 6rem; } 
+            .tool-header { padding: 1rem; }
+            .hide-mobile { display: none; }
+            .logo { font-size: 1.3rem; }
+            .tools-grid { gap: 1rem; }
+            .tool-card { padding: 1.5rem 1rem; min-height: 200px;}
+        }
+        
+        .dock-item { display: flex; flex-direction: column; align-items: center; color: var(--text-muted); cursor: pointer; font-size: 0.75rem; gap: 0.4rem; transition: 0.3s; font-weight: 500;}
+        .dock-item.active { color: var(--accent); transform: translateY(-4px); }
+
+        footer { padding: 4rem 2rem; border-top: 1px solid var(--glass-border); margin-top: auto; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3rem; text-align: left; background: rgba(0,0,0,0.3); padding-bottom: 7rem; }
+        .light-mode footer { background: rgba(255,255,255,0.4); }
+        .footer-link { display: block; color: var(--text-muted); text-decoration: none; margin-bottom: 1rem; cursor: pointer; transition: 0.3s; font-weight: 500;}
+        .footer-link:hover { color: var(--accent); padding-left: 8px; }
+        @media (max-width: 767px) { footer { grid-template-columns: 1fr; text-align: center; gap: 2rem;} .footer-link:hover { padding-left: 0; transform: scale(1.05); } }
+    </style>
+</head>
+<body>
+
+    <header class="glass">
+        <div class="logo"><i class="fas fa-meteor"></i> MegaToolUniverse</div>
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="live-search" class="search-input" placeholder="Search for tools, generators, editors..." autocomplete="off">
+            <div id="search-dropdown" class="search-results glass"></div>
+        </div>
+        <div style="display: flex; gap: 1.5rem; align-items: center;">
+            <button onclick="toggleTheme()" aria-label="Toggle Theme" style="background:none; border:none; color:var(--text-main); cursor:pointer; font-size:1.3rem; transition:0.3s;">
+                <i class="fas fa-moon" id="theme-icon"></i>
+            </button>
+            <button id="menu-btn" onclick="toggleSidebar(event)" aria-label="Open Menu" style="background:none; border:none; color:var(--text-main); cursor:pointer; font-size:1.6rem; transition:0.3s;">
+                <i class="fas fa-bars-staggered"></i>
+            </button>
+        </div>
+    </header>
+
+    <div id="sidebar" class="glass">
+        <div style="text-align: right; margin-bottom: 1.5rem;">
+            <button onclick="toggleSidebar()" style="background:none; border:none; color:var(--text-muted); font-size:1.6rem; cursor:pointer; transition:0.3s;"><i class="fas fa-xmark"></i></button>
+        </div>
+        <a class="menu-item" onclick="filterCategory('All')"><i class="fas fa-house fa-fw"></i> Home / All Tools</a>
+        <a class="menu-item" onclick="filterCategory('Pinned')"><i class="fas fa-thumbtack fa-fw"></i> Pinned Tools</a>
+        <a class="menu-item" onclick="filterCategory('Saved')"><i class="fas fa-bookmark fa-fw"></i> Saved Tools</a>
+        <a class="menu-item" onclick="filterCategory('Recent')"><i class="fas fa-clock-rotate-left fa-fw"></i> Recently Used</a>
+        <a class="menu-item" onclick="filterCategory('Trending')"><i class="fas fa-fire fa-fw"></i> Trending Tools</a>
+        <hr style="border-color: var(--glass-border); margin: 1.5rem 0;">
+        <div class="section-title" style="font-size:0.9rem; padding-left:1.2rem; color:var(--accent); text-transform:uppercase; letter-spacing:1px;">Categories</div>
+        <a class="menu-item" onclick="filterCategory('Social Media Tools')"><i class="fas fa-hashtag fa-fw"></i> Social Media</a>
+        <a class="menu-item" onclick="filterCategory('Student Tools')"><i class="fas fa-user-graduate fa-fw"></i> Student Tools</a>
+        <a class="menu-item" onclick="filterCategory('Utility Tools')"><i class="fas fa-screwdriver-wrench fa-fw"></i> Utility Tools</a>
+        <a class="menu-item" onclick="filterCategory('Image Tools')"><i class="fas fa-image fa-fw"></i> Image Tools</a>
+        <a class="menu-item" onclick="filterCategory('Fun & Games')"><i class="fas fa-gamepad fa-fw"></i> Fun & Games</a>
+        <hr style="border-color: var(--glass-border); margin: 1.5rem 0;">
+        <a class="menu-item" onclick="openRandomTool()" style="color:var(--accent);"><i class="fas fa-dice fa-fw"></i> Random Fun Tool</a>
+    </div>
+
+    <main>
+        <div id="popular-section" style="display: none;">
+            <h2 class="section-title"><i class="fas fa-star" style="color:#fbbf24;"></i> Trending Today</h2>
+            <div id="popular-grid" class="tools-grid"></div>
+            <hr style="border-color: var(--glass-border); margin: 3rem 0;">
+        </div>
+
+        <div id="pinned-section" style="display: none;">
+            <h2 class="section-title"><i class="fas fa-thumbtack" style="color:var(--accent);"></i> Pinned Favorites</h2>
+            <div id="pinned-grid" class="tools-grid"></div>
+            <hr style="border-color: var(--glass-border); margin: 3rem 0;">
+        </div>
+
+        <h2 id="main-title" class="section-title"><i class="fas fa-rocket"></i> Explore All Tools</h2>
+        
+        <div id="main-grid" class="tools-grid"></div>
+    </main>
+
+    <div class="fab" onclick="document.getElementById('live-search').focus() || window.dispatchEvent(new KeyboardEvent('keydown', {key: 'k', ctrlKey: true}))">
+        <i class="fas fa-magnifying-glass"></i>
+    </div>
+
+    <div class="mobile-dock">
+        <div class="dock-item active" onclick="filterCategory('All'); updateDock(this)"><i class="fas fa-house fa-lg"></i>Home</div>
+        <div class="dock-item" onclick="filterCategory('Trending'); updateDock(this)"><i class="fas fa-fire fa-lg"></i>Trending</div>
+        <div class="dock-item" onclick="filterCategory('Saved'); updateDock(this)"><i class="fas fa-bookmark fa-lg"></i>Saved</div>
+        <div class="dock-item" onclick="filterCategory('Recent'); updateDock(this)"><i class="fas fa-clock-rotate-left fa-lg"></i>Recent</div>
+        <div class="dock-item" onclick="toggleSidebar(event); updateDock(this)"><i class="fas fa-bars-staggered fa-lg"></i>Menu</div>
+    </div>
+
+    <footer>
+        <div>
+            <div class="logo" style="margin-bottom: 1.5rem;"><i class="fas fa-meteor"></i> MegaToolUniverse</div>
+            <p style="color: var(--text-muted); font-size: 0.95rem; line-height:1.6;">The Ultimate Internet Tools Operating System. Access all your favorite premium tools, editors, and generators seamlessly from a single platform.</p>
+        </div>
+        <div>
+            <h3 style="margin-bottom: 1.5rem; font-weight:700;">Navigation</h3>
+            <a class="footer-link" onclick="filterCategory('All'); window.scrollTo(0,0);"><i class="fas fa-angle-right" style="font-size:0.8em; margin-right:8px;"></i> Home</a>
+            <a class="footer-link" onclick="filterCategory('Trending'); window.scrollTo(0,0);"><i class="fas fa-angle-right" style="font-size:0.8em; margin-right:8px;"></i> Trending Tools</a>
+            <a class="footer-link" onclick="filterCategory('Saved'); window.scrollTo(0,0);"><i class="fas fa-angle-right" style="font-size:0.8em; margin-right:8px;"></i> Saved Tools</a>
+        </div>
+        <div>
+            <h3 style="margin-bottom: 1.5rem; font-weight:700;">Legal & Info</h3>
+            <a class="footer-link" href="privacy.html"><i class="fas fa-shield-halved" style="font-size:0.8em; margin-right:8px;"></i> Privacy Policy</a>
+            <a class="footer-link" href="terms.html"><i class="fas fa-file-signature" style="font-size:0.8em; margin-right:8px;"></i> Terms of Use</a>
+            <a class="footer-link" href="disclaimer.html"><i class="fas fa-circle-exclamation" style="font-size:0.8em; margin-right:8px;"></i> Disclaimer</a>
+            <a class="footer-link" href="contact.html"><i class="fas fa-envelope-open-text" style="font-size:0.8em; margin-right:8px;"></i> Contact Us</a>
+        </div>
+    </footer>
+    
+    <div id="tool-spa-panel" class="tool-panel">
+        <div class="tool-header">
+            <h3 id="active-tool-title" style="font-weight:700; display:flex; align-items:center; gap:12px; font-size: 1.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><i id="active-tool-icon"></i> <span>Tool Name</span></h3>
+            <div style="display:flex; gap: 1rem; flex-shrink: 0;">
+                <button class="btn-back" style="background:var(--glass-bg); border:1px solid var(--glass-border); color:var(--text-main);" onclick="openInNewTab()" aria-label="Open in new tab"><i class="fas fa-arrow-up-right-from-square"></i></button>
+                <button class="btn-back" onclick="closeTool()"><i class="fas fa-arrow-left"></i> <span class="hide-mobile">Back to Hub</span></button>
+            </div>
+        </div>
+        <div class="iframe-wrapper">
+            <div class="iframe-loading"><i class="fas fa-circle-notch fa-spin fa-2x" style="color:var(--accent);"></i><p>Booting Tool...</p></div>
+            <iframe id="tool-iframe" class="iframe-container" src=""></iframe>
+        </div>
+    </div>
+
+    <div id="long-press-modal" class="modal-overlay" onclick="closeModals(event)">
+        <div class="glass long-press-menu" onclick="event.stopPropagation()">
+            <h4 style="padding: 0.5rem 0.8rem; font-size: 0.85rem; color: var(--text-muted); border-bottom: 1px solid var(--glass-border); margin-bottom: 0.8rem; text-transform: uppercase; letter-spacing: 1px;">Quick Actions</h4>
+            <button class="long-press-btn" onclick="handleLongPressAction('pin')"><i class="fas fa-thumbtack fa-fw"></i> Pin to Home</button>
+            <button class="long-press-btn" onclick="handleLongPressAction('save')"><i class="fas fa-bookmark fa-fw"></i> Save Tool</button>
+            <button class="long-press-btn" onclick="handleLongPressAction('copy')"><i class="fas fa-link fa-fw"></i> Copy Link</button>
+        </div>
+    </div>
+
+    <div id="cmd-modal" class="modal-overlay" onclick="closeModals(event)">
+        <div id="cmd-palette" class="glass" onclick="event.stopPropagation()">
+            <div style="position:relative;">
+                <i class="fas fa-magnifying-glass" style="position:absolute; left:1.5rem; top:50%; transform:translateY(-50%); color:var(--accent); font-size:1.3rem;"></i>
+                <input type="text" id="cmd-input" class="search-input" placeholder="Search tools... (Esc to close)" style="font-size: 1.2rem; padding: 1.2rem 1.2rem 1.2rem 4rem; border-radius:20px;" autocomplete="off">
+            </div>
+            <div id="cmd-results" style="margin-top: 1.5rem; max-height: 400px; overflow-y: auto;"></div>
+        </div>
+    </div>
+
+    <script>
+        const baseURL = "https://megatooluniverse.github.io/";
+        
+        const rawTools = [
+            { path: "TweetGenPro/", cat: "Social Media Tools", icon: "fab fa-twitter", desc: "Create ultra-realistic fake tweets with verified badges.", tags: "twitter fake tweet generator social" },
+            { path: "InstaGenPro/", cat: "Social Media Tools", icon: "fab fa-instagram", desc: "Generate realistic fake Instagram posts and UI mockups.", tags: "instagram post fake social" },
+            { path: "FakeFollowerandProfile/", cat: "Social Media Tools", icon: "fas fa-users", desc: "Design mock social media profiles with custom counts.", tags: "profile follower fake social" },
+            { path: "LockGenPro/", cat: "Utility Tools", icon: "fas fa-lock", desc: "Generate highly secure, unbreakable passwords.", tags: "password lock secure utility" },
+            { path: "TextUtilsPro/", cat: "Utility Tools", icon: "fas fa-font", desc: "Advanced text editor to format and count words.", tags: "text word count utility editor" },
+            { path: "AgeRealityCal/", cat: "Utility Tools", icon: "fas fa-cake-candles", desc: "Calculate your exact age down to the seconds.", tags: "age calculator birthday utility" },
+            { path: "FIRDraftPro/", cat: "Utility Tools", icon: "fas fa-file-signature", desc: "Instantly generate police FIR drafts and legal templates.", tags: "fir police legal draft utility" },
+            { path: "SatireNewsGen/", cat: "Fun & Games", icon: "fas fa-newspaper", desc: "Create hilarious fake breaking news articles.", tags: "news fake satire fun prank" },
+            { path: "MockMCGen/", cat: "Utility Tools", icon: "fas fa-id-badge", desc: "Generate mock medical certificates and prescriptions.", tags: "medical certificate doctor utility" },
+            { path: "PFunCertificateGen/", cat: "Fun & Games", icon: "fas fa-certificate", desc: "Design funny custom certificates like 'Best Friend'.", tags: "certificate award fun game" },
+            { path: "VIPPassGenPro/", cat: "Utility Tools", icon: "fas fa-ticket", desc: "Create premium digital VIP passes and event tickets.", tags: "vip pass ticket utility event" },
+            { path: "SecureGentools/", cat: "Utility Tools", icon: "fas fa-shield-halved", desc: "Security suite for generating hashes and secure tokens.", tags: "secure hash token utility" },
+            { path: "DevStudioProCoderun/", cat: "Utility Tools", icon: "fas fa-code", desc: "Online code editor to test HTML, CSS, and JS.", tags: "code editor compiler html utility" },
+            { path: "SmartStudentPDF/", cat: "Student Tools", icon: "fas fa-file-pdf", desc: "Merge, split, and organize your study PDF documents.", tags: "pdf merge student education" },
+            { path: "SampleBalanceDesigner/", cat: "Utility Tools", icon: "fas fa-wallet", desc: "Create mock bank account balance screenshots.", tags: "bank balance fake money prank" },
+            { path: "StudentAI/", cat: "Student Tools", icon: "fas fa-robot", desc: "Smart AI assistant for homework and study planning.", tags: "ai student homework education" },
+            { path: "ResultGenerator/", cat: "Student Tools", icon: "fas fa-graduation-cap", desc: "Generate custom mock school exam result marksheets.", tags: "exam result school education marksheet" },
+            { path: "PhotoSheetProMax/", cat: "Image Tools", icon: "fas fa-images", desc: "Arrange and print passport-size photos on A4 sheet.", tags: "photo passport print image" },
+            { path: "ImageMasterPro/", cat: "Image Tools", icon: "fas fa-image", desc: "Compress, resize, and crop your images quickly.", tags: "image resize crop compress" },
+            { path: "QuickQRPro/", cat: "Utility Tools", icon: "fas fa-qrcode", desc: "Generate custom QR codes for websites and Wi-Fi.", tags: "qr code generator utility scanner" },
+            { path: "ApplicationGenPro/", cat: "Utility Tools", icon: "fas fa-file-lines", desc: "Write perfectly formatted formal applications.", tags: "application letter formal write" },
+            { path: "LegacyCardGen/", cat: "Utility Tools", icon: "fas fa-id-card-clip", desc: "Design classic, vintage-style ID cards and badges.", tags: "id card badge legacy creator" },
+            { path: "TimeUntilCountdown/", cat: "Utility Tools", icon: "fas fa-hourglass-half", desc: "Create beautiful live countdown timers.", tags: "timer countdown time utility clock" },
+            { path: "EventInviteMaker/", cat: "Utility Tools", icon: "fas fa-envelope-open-text", desc: "Design digital invitation cards for parties.", tags: "invite event card party creator" },
+            { path: "SAMPLE-GOVERNMENT-LETTERGENERATOR-NOT-REAL/", cat: "Utility Tools", icon: "fas fa-landmark", desc: "Generate mock government-style official letters.", tags: "government letter fake utility official" },
+            { path: "AwardCardGenerator/", cat: "Utility Tools", icon: "fas fa-trophy", desc: "Create professional award certificates.", tags: "award certificate trophy winner" },
+            { path: "WeddingCardMaker/", cat: "Utility Tools", icon: "fas fa-ring", desc: "Design elegant digital wedding invitation cards.", tags: "wedding card invite marriage utility" },
+            { path: "HackerTerminalMock/", cat: "Fun & Games", icon: "fas fa-terminal", desc: "Simulate a hacker typing screen to prank friends.", tags: "hacker terminal prank fun code" },
+            { path: "CartoonNoticeMaker/", cat: "Fun & Games", icon: "fas fa-paint-roller", desc: "Create fun, cartoon-style notice board signs.", tags: "notice board cartoon sign fun" },
+            { path: "UltaDimagBazar/", cat: "Fun & Games", icon: "fas fa-brain", desc: "Test your brain with mind-bending trick questions.", tags: "brain quiz game trick fun puzzle" },
+            { path: "NeuralSYNC/", cat: "Utility Tools", icon: "fas fa-network-wired", desc: "Visual tool simulating neural network connections.", tags: "neural network visual utility tech" },
+            { path: "Samosa-Roulette-Kaun-Banega-Bakra/", cat: "Fun & Games", icon: "fas fa-cookie-bite", desc: "Hilarious party game to decide who pays the bill.", tags: "game roulette party fun bill bakra" },
+            { path: "SecretScratchCard/", cat: "Fun & Games", icon: "fas fa-receipt", desc: "Create digital scratch cards with hidden prizes.", tags: "scratch card prize hidden fun game" },
+            { path: "PackSurpriseGift/", cat: "Fun & Games", icon: "fas fa-gift", desc: "Send virtual 3D surprise gift boxes to friends.", tags: "gift box surprise fun 3d present" },
+            { path: "NexusX.com/", cat: "Utility Tools", icon: "fas fa-globe", desc: "Explore a premium futuristic web interface mockup.", tags: "nexus web UI mockup simulator" },
+            { path: "NexusGames/", cat: "Fun & Games", icon: "fas fa-gamepad", desc: "A curated collection of addictive mini-games.", tags: "games mini play fun online arcade" },
+            { path: "SyncBoard-P2P/", cat: "Utility Tools", icon: "fas fa-share-nodes", desc: "Real-time peer-to-peer shared whiteboard.", draw: "whiteboard sync draw collaborate p2p" },
+            { path: "UltraFunkVisualizer/", cat: "Fun & Games", icon: "fas fa-music", desc: "Dynamic audio visualizer reacting to your voice.", tags: "audio visualizer music fun mic" },
+            { path: "FunkVisual/", cat: "Fun & Games", icon: "fas fa-wave-square", desc: "Generate trippy visual effects and animations.", tags: "visual effects trippy fun animation" },
+            { path: "SalaryCalculator/", cat: "Utility Tools", icon: "fas fa-money-bill-trend-up", desc: "Calculate your take-home pay and tax deductions.", tags: "salary money tax calculator utility income" }
+        ];
+
+        const tools = rawTools.map(t => {
+            let id = t.path.replace(/\//g, "").toLowerCase();
+            let name = t.path.replace(/\//g, "").replace(/([A-Z])/g, ' $1').trim();
+            if(name.includes("S A M P L E")) name = "Gov Letter Generator";
+            return {
+                id: id, name: name, url: baseURL + t.path, icon: t.icon, desc: t.desc, 
+                category: t.cat, tags: t.tags || "", uses: Math.floor(Math.random() * 50000) + 5000 
+            };
+        });
+
+        function getStorage(key) { return JSON.parse(localStorage.getItem(key)) || []; }
+        function setStorage(key, data) { localStorage.setItem(key, JSON.stringify(data)); }
+        
+        const mainGrid = document.getElementById('main-grid');
+        const pinnedGrid = document.getElementById('pinned-grid');
+        const popularGrid = document.getElementById('popular-grid');
+        const pinnedSection = document.getElementById('pinned-section');
+        const popularSection = document.getElementById('popular-section');
+        const mainTitle = document.getElementById('main-title');
+        
+        function renderTools(toolsArray, container) {
+            container.innerHTML = '';
+            toolsArray.forEach(tool => {
+                const card = document.createElement('div');
+                card.className = 'tool-card glass';
+                card.onclick = () => openTool(tool.id);
+                
+                let pressTimer;
+                let isScrolling = false;
+                const startPress = (e) => { 
+                    isScrolling = false;
+                    pressTimer = setTimeout(() => { if(!isScrolling) openLongPressMenu(tool); }, 800); 
+                };
+                const cancelPress = () => { clearTimeout(pressTimer); };
+                const markScroll = () => { isScrolling = true; cancelPress(); };
+
+                card.addEventListener('mousedown', startPress); card.addEventListener('mouseup', cancelPress); card.addEventListener('mouseleave', cancelPress);
+                card.addEventListener('touchstart', startPress, {passive: true}); card.addEventListener('touchend', cancelPress); card.addEventListener('touchmove', markScroll, {passive: true});
+                card.oncontextmenu = (e) => { e.preventDefault(); return false; }; 
+
+                card.innerHTML = `
+                    <div class="tool-uses"><i class="fas fa-eye"></i> ${tool.uses.toLocaleString()}</div>
+                    <i class="${tool.icon} tool-icon"></i>
+                    <h3 class="tool-title">${tool.name}</h3>
+                    <p class="tool-desc">${tool.desc}</p>
+                `;
+                container.appendChild(card);
+            });
+            if(toolsArray.length === 0) container.innerHTML = `<p style="grid-column: 1/-1; text-align:center; color: var(--text-muted); padding: 3rem; font-size: 1.1rem;"><i class="fas fa-ghost fa-2x" style="margin-bottom:1rem; opacity:0.5;"></i><br>No tools found here.</p>`;
+        }
+
+        function renderPopular() { renderTools([...tools].sort((a, b) => b.uses - a.uses).slice(0, 4), popularGrid); }
+
+        function renderHome() {
+            const pinnedIds = getStorage('pinnedTools');
+            const pinnedTools = tools.filter(t => pinnedIds.includes(t.id));
+            if(pinnedTools.length > 0) { pinnedSection.style.display = 'block'; renderTools(pinnedTools, pinnedGrid); } else { pinnedSection.style.display = 'none'; }
+            popularSection.style.display = 'block'; renderPopular();
+            renderTools(tools, mainGrid); mainTitle.innerHTML = `<i class="fas fa-rocket"></i> Explore All Tools`;
+        }
+
+        function filterCategory(cat) {
+            toggleSidebar(false);
+            pinnedSection.style.display = 'none'; popularSection.style.display = 'none'; 
+            let filtered = [];
+            if (cat === 'All') { renderHome(); return; }
+            else if (cat === 'Saved') { filtered = tools.filter(t => getStorage('savedTools').includes(t.id)); mainTitle.innerHTML = `<i class="fas fa-bookmark" style="color:var(--accent);"></i> Saved Tools`; }
+            else if (cat === 'Pinned') { filtered = tools.filter(t => getStorage('pinnedTools').includes(t.id)); mainTitle.innerHTML = `<i class="fas fa-thumbtack" style="color:var(--accent);"></i> Pinned Tools`; }
+            else if (cat === 'Recent') { filtered = getStorage('recentTools').map(id => tools.find(t => t.id === id)).filter(Boolean); mainTitle.innerHTML = `<i class="fas fa-clock-rotate-left" style="color:var(--accent);"></i> Recently Used`; }
+            else if (cat === 'Trending') { filtered = [...tools].sort((a,b) => b.uses - a.uses).slice(0, 12); mainTitle.innerHTML = `<i class="fas fa-fire" style="color:#ef4444;"></i> Trending Tools`; }
+            else { filtered = tools.filter(t => t.category === cat); mainTitle.innerHTML = `<i class="fas fa-folder-open" style="color:var(--accent);"></i> ${cat}`; }
+            renderTools(filtered, mainGrid); 
+        }
+
+        function updateDock(clickedItem) {
+            document.querySelectorAll('.dock-item').forEach(el => el.classList.remove('active'));
+            if(clickedItem) clickedItem.classList.add('active');
+        }
+
+        const liveSearch = document.getElementById('live-search');
+        const searchDropdown = document.getElementById('search-dropdown');
+        
+        liveSearch.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            if(query.length === 0) { searchDropdown.style.display = 'none'; return; }
+            const results = tools.filter(t => t.name.toLowerCase().includes(query) || t.id.includes(query) || t.category.toLowerCase().includes(query) || t.tags.includes(query));
+            searchDropdown.innerHTML = '';
+            results.slice(0, 6).forEach(tool => {
+                const div = document.createElement('div');
+                div.style.cssText = "padding:1.2rem; cursor:pointer; border-bottom:1px solid var(--glass-border); display:flex; align-items:center; gap:15px; transition:0.3s;";
+                div.innerHTML = `<i class="${tool.icon}" style="color:var(--accent); font-size:1.5rem; width:30px; text-align:center;"></i> <div><div style="font-weight:700; font-size:1.05rem;">${tool.name}</div><div style="font-size:0.8rem; color:var(--text-muted); margin-top:3px;">${tool.category}</div></div>`;
+                div.onmouseover = () => div.style.backgroundColor = "var(--glass-hover)"; div.onmouseout = () => div.style.backgroundColor = "transparent";
+                div.onclick = () => { openTool(tool.id); searchDropdown.style.display = 'none'; liveSearch.value=''; };
+                searchDropdown.appendChild(div);
+            });
+            searchDropdown.style.display = results.length > 0 ? 'block' : 'none';
+        });
+
+        document.addEventListener('click', (e) => {
+            if(!e.target.closest('.search-container')) searchDropdown.style.display = 'none';
+            if(!e.target.closest('#sidebar') && !e.target.closest('#menu-btn')) document.getElementById('sidebar').classList.remove('open');
+        });
+
+        let currentOpenTool = null;
+        function openTool(id) {
+            const tool = tools.find(t => t.id === id);
+            if(!tool) return;
+            
+            let recents = getStorage('recentTools').filter(rId => rId !== id); 
+            recents.unshift(id); if(recents.length > 20) recents.pop(); setStorage('recentTools', recents);
+            tool.uses++;
+
+            document.querySelector('#active-tool-title span').innerText = tool.name;
+            document.getElementById('active-tool-icon').className = tool.icon;
+            
+            const iframe = document.getElementById('tool-iframe');
+            iframe.style.opacity = '0'; iframe.src = tool.url;
+            iframe.onload = () => { iframe.style.opacity = '1'; }; 
+
+            document.getElementById('tool-spa-panel').classList.add('active');
+            document.body.style.overflow = 'hidden'; 
+            
+            window.history.pushState(null, null, `#${id}`);
+            currentOpenTool = tool;
+        }
+
+        function closeTool() {
+            document.getElementById('tool-spa-panel').classList.remove('active');
+            document.body.style.overflow = ''; 
+            setTimeout(() => { document.getElementById('tool-iframe').src = ""; }, 500); 
+            window.history.replaceState(null, null, window.location.pathname); 
+            currentOpenTool = null; renderHome(); 
+        }
+
+        function openInNewTab() { if(currentOpenTool) window.open(currentOpenTool.url, '_blank'); }
+        
+        // FIX: Random Tool will only select from the last 5 tools
+        function openRandomTool() { 
+            const last5Tools = tools.slice(-5);
+            const randomTool = last5Tools[Math.floor(Math.random() * last5Tools.length)];
+            openTool(randomTool.id); 
+            toggleSidebar(false); 
+        }
+
+        window.addEventListener('popstate', () => {
+            const hash = window.location.hash.replace('#', '');
+            if(hash) { openTool(hash); } else { document.getElementById('tool-spa-panel').classList.remove('active'); document.body.style.overflow = ''; }
+        });
+
+        let targetLongPressTool = null;
+        function openLongPressMenu(tool) {
+            targetLongPressTool = tool;
+            document.getElementById('long-press-modal').style.display = 'flex';
+        }
+
+        function handleLongPressAction(action) {
+            if(!targetLongPressTool) return;
+            const id = targetLongPressTool.id;
+            if(action === 'save') {
+                let saved = getStorage('savedTools');
+                if(!saved.includes(id)) { saved.push(id); setStorage('savedTools', saved); alert(targetLongPressTool.name + " Saved!");} else { alert("Tool already saved."); }
+            }
+            if(action === 'pin') {
+                let pinned = getStorage('pinnedTools');
+                if(!pinned.includes(id)) { pinned.push(id); setStorage('pinnedTools', pinned); alert(targetLongPressTool.name + " Pinned to Home!");} else { alert("Tool already pinned."); }
+            }
+            if(action === 'copy') { navigator.clipboard.writeText(baseURL + "#" + id); alert("Link copied to clipboard!"); }
+            closeModals(); if(document.getElementById('pinned-section').style.display !== 'none') renderHome();
+        }
+
+        const cmdModal = document.getElementById('cmd-modal');
+        const cmdInput = document.getElementById('cmd-input');
+        const cmdResults = document.getElementById('cmd-results');
+
+        window.addEventListener('keydown', (e) => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); cmdModal.style.display = 'flex'; cmdInput.focus(); renderCmdResults(''); }
+            if(e.key === 'Escape') { closeModals(); }
+        });
+
+        cmdInput.addEventListener('input', (e) => renderCmdResults(e.target.value.toLowerCase()));
+
+        function renderCmdResults(query) {
+            cmdResults.innerHTML = '';
+            const results = tools.filter(t => t.name.toLowerCase().includes(query) || t.category.toLowerCase().includes(query) || t.tags.includes(query));
+            results.slice(0, 10).forEach(tool => {
+                const div = document.createElement('div');
+                div.className = 'glass';
+                div.style.cssText = "padding:1.2rem; margin-bottom:1rem; cursor:pointer; display:flex; align-items:center; transition:0.3s; border-radius:16px;";
+                div.innerHTML = `<i class="${tool.icon}" style="margin-right:20px; font-size:1.8rem; color:var(--accent); width:40px; text-align:center; filter: drop-shadow(0 0 5px var(--glow));"></i> <div><div style="font-weight:700; font-size:1.15rem;">${tool.name}</div><div style="font-size:0.85rem; color:var(--text-muted); margin-top:4px;">${tool.category}</div></div>`;
+                div.onmouseover = () => div.style.transform = "translateY(-3px)"; div.onmouseout = () => div.style.transform = "translateY(0)";
+                div.onclick = () => { openTool(tool.id); closeModals(); cmdInput.value=''; };
+                cmdResults.appendChild(div);
+            });
+        }
+
+        function toggleSidebar(e) {
+            if(e) e.stopPropagation();
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            const icon = document.getElementById('theme-icon');
+            if(document.body.classList.contains('light-mode')) {
+                icon.className = 'fas fa-sun'; localStorage.setItem('theme', 'light');
+            } else {
+                icon.className = 'fas fa-moon'; localStorage.setItem('theme', 'dark');
+            }
+        }
+
+        function closeModals(e) {
+            if(e && e.target !== e.currentTarget) return; 
+            document.getElementById('long-press-modal').style.display = 'none';
+            document.getElementById('cmd-modal').style.display = 'none';
+        }
+
+        window.onload = () => {
+            if(localStorage.getItem('theme') === 'light') toggleTheme();
+            const initialHash = window.location.hash.replace('#', '');
+            if(initialHash) openTool(initialHash); else renderHome();
+        };
+    </script>
+</body>
+</html>
