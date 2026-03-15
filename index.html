@@ -2,18 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     
     <title>MegaToolUniverse - Premium All-in-One Internet Tools OS</title>
-    <meta name="description" content="MegaToolUniverse is your ultimate hub for 40+ premium internet tools. Access AI generators, student utilities, image editors, and fun games in a single, fast web app.">
-    <meta name="keywords" content="free online tools, AI tools, student tools, social media generators, image editors, web OS, MegaToolUniverse, utility tools, free web apps">
+    <meta name="description" content="MegaToolUniverse is your ultimate hub for 40+ premium internet tools. Access AI generators, student utilities, image editors, mock apps, and fun games in a single, lightning-fast web app.">
+    <meta name="keywords" content="free online tools, AI tools, student tools, social media generators, image editors, web OS, utility tools">
     <meta name="author" content="MegaToolUniverse">
     <meta name="robots" content="index, follow">
     
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://megatooluniverse.github.io/">
-    <meta property="og:title" content="MegaToolUniverse - Premium All-in-One Internet Tools OS">
-    <meta property="og:description" content="Access 40+ premium free tools in one place. Everything you need, no downloads required.">
+    <meta property="og:title" content="MegaToolUniverse - Premium Tools OS">
+    <meta property="og:description" content="Access 40+ premium free tools in one place. No downloads required.">
+    <meta name="twitter:card" content="summary_large_image">
+
     <link rel="icon" href="favicon.ico" type="image/x-icon">
     <meta name="monetag" content="941261bbdb7ec1795fe342e02bc623a5">
 
@@ -27,20 +29,21 @@
         /* CSS VARIABLES & ADVANCED MULTI-COLOR THEMING */
         :root {
             --font-family: 'Inter', sans-serif;
-            /* Premium Dark Aurora Gradient */
             --bg-gradient: linear-gradient(-45deg, #0f172a, #3b0764, #1e1b4b, #831843, #0c4a6e);
+            --bg-mobile: #0f172a; 
             --text-main: #ffffff;
             --text-muted: #cbd5e1;
             --glass-bg: rgba(255, 255, 255, 0.04);
             --glass-border: rgba(255, 255, 255, 0.08);
             --glass-hover: rgba(255, 255, 255, 0.12);
-            --accent: #c084fc; /* Vibrant purple-cyan vibe */
+            --accent: #c084fc; 
             --glow: rgba(192, 132, 252, 0.4);
+            --panel-bg: rgba(15, 23, 42, 0.95);
         }
 
         .light-mode {
-            /* Smooth Premium Light Pastel Gradient */
             --bg-gradient: linear-gradient(-45deg, #fdfbfb, #ebedee, #f3e7e9, #e3eeff);
+            --bg-mobile: #f8fafc;
             --text-main: #0f172a;
             --text-muted: #475569;
             --glass-bg: rgba(255, 255, 255, 0.65);
@@ -48,122 +51,158 @@
             --glass-hover: rgba(255, 255, 255, 0.9);
             --accent: #9333ea;
             --glow: rgba(147, 51, 234, 0.3);
+            --panel-bg: rgba(248, 250, 252, 0.95);
         }
 
-        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 10px; }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-family); }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: var(--font-family); -webkit-tap-highlight-color: transparent; }
+        
         body { 
-            background: var(--bg-gradient); background-size: 300% 300%; 
-            animation: gradientBG 18s ease infinite; color: var(--text-main);
-            overflow-x: hidden; min-height: 100vh; display: flex; flex-direction: column;
-            transition: background 0.4s ease, color 0.4s ease;
+            background: var(--bg-gradient); 
+            background-size: 300% 300%; 
+            animation: gradientBG 20s ease infinite; 
+            color: var(--text-main);
+            overflow-x: hidden; 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column;
         }
+
         @keyframes gradientBG { 0% {background-position: 0% 50%;} 50% {background-position: 100% 50%;} 100% {background-position: 0% 50%;} }
 
         .glass {
-            background: var(--glass-bg); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-            border: 1px solid var(--glass-border); border-radius: 16px; box-shadow: 0 8px 32px 0 rgba(0,0,0,0.2);
+            background: var(--glass-bg); 
+            backdrop-filter: blur(16px); 
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border); 
+            border-radius: 16px; 
+            box-shadow: 0 8px 32px 0 rgba(0,0,0,0.15);
         }
         
         header { 
             position: sticky; top: 0; z-index: 40; padding: 1rem 2rem; 
             display: flex; justify-content: space-between; align-items: center; 
             border-radius: 0 0 20px 20px; border-top: none;
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            background: var(--glass-bg);
         }
         .logo { font-size: 1.5rem; font-weight: 700; background: linear-gradient(to right, #c084fc, #38bdf8); -webkit-background-clip: text; -webkit-text-fill-color: transparent; letter-spacing: -0.5px;}
+        
         .search-container { position: relative; width: 45%; max-width: 600px; }
         .search-input { 
             width: 100%; padding: 0.9rem 1rem 0.9rem 2.8rem; border-radius: 25px; border: 1px solid var(--glass-border);
-            background: var(--glass-bg); color: var(--text-main); outline: none; transition: 0.3s; font-size: 0.95rem;
+            background: var(--glass-bg); color: var(--text-main); outline: none; font-size: 0.95rem; transition: 0.3s;
         }
-        .search-input:focus { border-color: var(--accent); background: var(--glass-hover); box-shadow: 0 0 20px var(--glow); }
+        .search-input:focus { border-color: var(--accent); background: var(--glass-hover); box-shadow: 0 0 15px var(--glow); }
         .search-icon { position: absolute; left: 1.2rem; top: 50%; transform: translateY(-50%); color: var(--text-muted); }
-        .search-results { position: absolute; top: 110%; left: 0; width: 100%; border-radius: 16px; display: none; z-index: 50; max-height: 350px; overflow-y: auto; }
+        .search-results { position: absolute; top: 110%; left: 0; width: 100%; border-radius: 16px; display: none; z-index: 50; max-height: 350px; overflow-y: auto; background: var(--panel-bg); border: 1px solid var(--glass-border); backdrop-filter: blur(20px);}
         
         #sidebar { 
-            position: fixed; top: 0; right: -320px; width: 300px; height: 100vh; z-index: 60;
-            padding: 2rem 1rem 6rem 1rem; transition: 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); 
-            border-radius: 20px 0 0 20px; overflow-y: auto; 
+            position: fixed; top: 0; right: 0; width: 300px; height: 100vh; z-index: 60;
+            padding: 2rem 1rem 6rem 1rem; 
+            background: var(--panel-bg); border-left: 1px solid var(--glass-border);
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            transform: translateX(100%); 
+            transition: transform 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); 
+            overflow-y: auto; 
+            will-change: transform;
         }
-        #sidebar.open { right: 0; box-shadow: -10px 0 40px rgba(0,0,0,0.5); }
-        .menu-item { display: block; padding: 1rem 1.2rem; margin-bottom: 0.5rem; border-radius: 12px; color: var(--text-main); text-decoration: none; transition: 0.3s; cursor: pointer; font-weight: 500;}
-        .menu-item:hover { background: var(--glass-hover); transform: translateX(5px); color: var(--accent); }
+        #sidebar.open { transform: translateX(0); box-shadow: -10px 0 40px rgba(0,0,0,0.5); }
         
-        main { padding: 2.5rem 2rem; flex: 1; margin-bottom: 80px; max-width: 1400px; margin-left: auto; margin-right: auto; width: 100%; }
+        .menu-item { display: block; padding: 1rem 1.2rem; margin-bottom: 0.5rem; border-radius: 12px; color: var(--text-main); text-decoration: none; cursor: pointer; font-weight: 500; transition: 0.3s; }
+        .menu-item:hover, .menu-item:active { background: var(--glass-hover); transform: translateX(5px); color: var(--accent); }
+        
+        main { padding: 2.5rem 2rem; flex: 1; max-width: 1400px; margin: 0 auto; width: 100%; padding-bottom: 100px; }
         .section-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 1.5rem; color: var(--text-main); display: flex; align-items: center; gap: 0.6rem; letter-spacing: -0.5px;}
         
-        /* ADVANCED GRID SYSTEM */
-        .tools-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; margin-bottom: 3rem; align-items: stretch; }
+        .tools-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; margin-bottom: 3rem; }
         @media (min-width: 768px) { .tools-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; } }
         @media (min-width: 1024px) { .tools-grid { grid-template-columns: repeat(4, 1fr); gap: 2rem; } }
         
         .tool-card {
-            padding: 1.8rem 1.5rem; text-align: center; cursor: pointer; transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            padding: 1.8rem 1.2rem; text-align: center; cursor: pointer; 
             display: flex; flex-direction: column; justify-content: flex-start; align-items: center; position: relative;
-            user-select: none; -webkit-user-select: none; -webkit-touch-callout: none;
-            height: 100%; min-height: 230px; border-radius: 20px;
+            min-height: 220px; border-radius: 20px; 
+            background: var(--glass-bg); border: 1px solid var(--glass-border);
+            transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+            will-change: transform;
         }
-        /* ADDING GLOW ON HOVER */
-        .tool-card:hover { transform: translateY(-8px); background: var(--glass-hover); box-shadow: 0 15px 35px var(--glow); border-color: var(--accent); }
-        .tool-card:active { transform: scale(0.97); }
-        .tool-icon { font-size: 2.8rem; margin-bottom: 1.2rem; color: var(--accent); transition: 0.4s; flex-shrink: 0; filter: drop-shadow(0 0 10px var(--glow));}
-        .tool-card:hover .tool-icon { transform: scale(1.15) rotate(5deg); }
+        .tool-card:active { transform: scale(0.96); }
+        @media (min-width: 768px) {
+            .tool-card:hover { transform: translateY(-8px); background: var(--glass-hover); box-shadow: 0 15px 35px var(--glow); border-color: var(--accent); }
+            .tool-card:hover .tool-icon { transform: scale(1.15) rotate(5deg); }
+        }
         
-        .tool-title { font-size: 1.1rem; font-weight: 700; margin-bottom: 0.6rem; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .tool-icon { font-size: 2.8rem; margin-bottom: 1.2rem; color: var(--accent); flex-shrink: 0; filter: drop-shadow(0 0 8px var(--glow)); transition: 0.4s;}
+        .tool-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; line-height: 1.3; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
         .tool-desc { font-size: 0.85rem; color: var(--text-muted); display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; margin-top: auto; line-height: 1.5;}
+        .tool-uses { position: absolute; top: 12px; right: 12px; font-size: 0.7rem; color: var(--text-muted); background: rgba(0,0,0,0.4); padding: 4px 8px; border-radius: 12px; font-weight: 500; border: 1px solid var(--glass-border);}
+        .light-mode .tool-uses { background: rgba(255,255,255,0.9); }
         
-        .tool-uses { position: absolute; top: 12px; right: 12px; font-size: 0.7rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.3rem; background: rgba(0,0,0,0.3); padding: 4px 8px; border-radius: 12px; z-index: 2; font-weight: 500; border: 1px solid var(--glass-border);}
-        .light-mode .tool-uses { background: rgba(255,255,255,0.8); }
+        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); z-index: 100; display: none; justify-content: center; align-items: center; opacity: 0; transition: opacity 0.3s; }
+        .modal-overlay.show { display: flex; opacity: 1; }
         
-        /* Modals & Panels */
-        .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.7); backdrop-filter: blur(8px); z-index: 100; display: none; justify-content: center; align-items: center; }
-        .tool-panel { width: 100vw; height: 100vh; position: fixed; bottom: -100vh; left: 0; z-index: 90; transition: bottom 0.5s cubic-bezier(0.25, 1, 0.5, 1); border-radius: 24px 24px 0 0; display: flex; flex-direction: column; background: var(--bg-gradient); }
-        .tool-panel.active { bottom: 0; box-shadow: 0 -15px 50px rgba(0,0,0,0.6); }
-        .tool-header { padding: 1.2rem 2.5rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--glass-border); background: var(--glass-bg); backdrop-filter: blur(12px); border-radius: 24px 24px 0 0;}
-        .btn-back { padding: 0.7rem 1.4rem; border-radius: 10px; border: none; background: var(--accent); color: white; cursor: pointer; font-weight: 600; transition: 0.3s; display: flex; align-items: center; gap: 0.6rem; }
+        .tool-panel { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; height: 100dvh; z-index: 90; 
+            background: var(--bg-gradient); display: flex; flex-direction: column; 
+            transform: translateY(100%); 
+            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1); 
+            will-change: transform;
+        }
+        .tool-panel.active { transform: translateY(0); }
+        
+        .tool-header { padding: 1.2rem 2.5rem; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--glass-border); background: var(--glass-bg); backdrop-filter: blur(12px); }
+        .btn-back { padding: 0.7rem 1.4rem; border-radius: 10px; border: none; background: var(--accent); color: white; cursor: pointer; font-weight: 600; display: flex; align-items: center; gap: 0.6rem; font-size: 0.95rem; transition: 0.3s;}
         .btn-back:hover { box-shadow: 0 0 15px var(--glow); transform: scale(1.05); }
-        
-        .iframe-wrapper { flex: 1; position: relative; width: 100%; background: #ffffff; border-radius: 0 0 24px 24px; overflow: hidden; }
+
+        .iframe-wrapper { flex: 1; position: relative; width: 100%; background: #ffffff; }
         .iframe-loading { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: #000; font-weight: 600; display: flex; flex-direction: column; align-items: center; gap: 12px; z-index: 1; }
-        .iframe-container { position: relative; width: 100%; height: 100%; border: none; z-index: 2; background: transparent; }
+        .iframe-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; z-index: 2; background: transparent; }
 
-        .long-press-menu { width: 240px; padding: 0.8rem; display: flex; flex-direction: column; gap: 0.5rem; border-radius: 20px;}
-        .long-press-btn { padding: 0.9rem 1rem; border: none; background: transparent; color: var(--text-main); text-align: left; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 0.8rem; font-size: 1rem; transition: 0.3s; font-weight: 500;}
-        .long-press-btn:hover { background: var(--glass-hover); color: var(--accent); padding-left: 1.5rem; }
+        .long-press-menu { width: 240px; padding: 0.8rem; display: flex; flex-direction: column; gap: 0.5rem; border-radius: 20px; background: var(--panel-bg); border: 1px solid var(--glass-border);}
+        .long-press-btn { padding: 0.9rem 1rem; border: none; background: transparent; color: var(--text-main); text-align: left; border-radius: 12px; cursor: pointer; display: flex; align-items: center; gap: 0.8rem; font-size: 1rem; font-weight: 500; transition: 0.3s;}
+        .long-press-btn:active, .long-press-btn:hover { background: var(--glass-hover); color: var(--accent); padding-left: 1.5rem;}
 
-        #cmd-palette { max-width: 600px; width: 90%; align-self: flex-start; margin-top: 15vh; padding: 1.5rem; border-radius: 24px;}
+        .fab { position: fixed; bottom: 2.5rem; right: 2.5rem; width: 65px; height: 65px; border-radius: 50%; background: var(--accent); color: white; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; cursor: pointer; box-shadow: 0 8px 25px var(--glow); z-index: 30; transition: 0.4s;}
+        @media (min-width: 768px) { .fab:hover { transform: scale(1.15) rotate(15deg); } }
         
-        .fab { position: fixed; bottom: 2.5rem; right: 2.5rem; width: 65px; height: 65px; border-radius: 50%; background: var(--accent); color: white; display: flex; justify-content: center; align-items: center; font-size: 1.5rem; cursor: pointer; box-shadow: 0 8px 25px var(--glow); z-index: 30; transition: 0.4s; }
-        .fab:hover { transform: scale(1.15) rotate(15deg); }
-        
-        .mobile-dock { position: fixed; bottom: 0; left: 0; width: 100%; display: none; justify-content: space-around; padding: 1rem 1rem calc(1rem + env(safe-area-inset-bottom)); z-index: 40; border-radius: 24px 24px 0 0; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(20px); border-top: 1px solid rgba(255,255,255,0.1);}
-        .light-mode .mobile-dock { background: rgba(255, 255, 255, 0.8); border-top: 1px solid rgba(0,0,0,0.1);}
-        
+        .mobile-dock { position: fixed; bottom: 0; left: 0; width: 100%; display: none; justify-content: space-around; padding: 0.8rem 0.5rem calc(0.8rem + env(safe-area-inset-bottom)); z-index: 40; background: var(--panel-bg); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-top: 1px solid var(--glass-border); border-radius: 24px 24px 0 0;}
+        .dock-item { display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-muted); font-size: 0.75rem; gap: 0.4rem; font-weight: 500; width: 20%; padding: 5px 0; transition: 0.3s;}
+        .dock-item.active { color: var(--accent); transform: translateY(-4px); }
+
+        /* ====== PREMIUM FOOTER ====== */
+        footer { padding: 4rem 2rem; border-top: 1px solid var(--glass-border); margin-top: auto; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3rem; text-align: left; background: rgba(0,0,0,0.3); padding-bottom: 7rem; }
+        .light-mode footer { background: rgba(255,255,255,0.4); }
+        .footer-link { display: block; color: var(--text-muted); text-decoration: none; margin-bottom: 1rem; cursor: pointer; transition: 0.3s; font-weight: 500;}
+        .footer-link:hover { color: var(--accent); padding-left: 8px; }
+
+        /* ====== EXTREME MOBILE OPTIMIZATIONS ====== */
         @media (max-width: 767px) { 
+            body { animation: none; background: var(--bg-mobile); }
+            .glass { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); }
+            .light-mode .glass { background: #ffffff; border: 1px solid #e2e8f0; }
+            
             .mobile-dock { display: flex; } 
-            .fab { bottom: 6.5rem; right: 1.2rem; width: 55px; height: 55px; font-size: 1.2rem;}
-            header { padding: 1rem; }
+            .fab { bottom: 6rem; right: 1.2rem; width: 55px; height: 55px; font-size: 1.2rem;}
+            header { padding: 1rem; background: var(--panel-bg); }
             .search-container { display: none; } 
             main { padding: 1.5rem 1rem; padding-bottom: 6rem; } 
             .tool-header { padding: 1rem; }
             .hide-mobile { display: none; }
             .logo { font-size: 1.3rem; }
-            .tools-grid { gap: 1rem; }
-            .tool-card { padding: 1.5rem 1rem; min-height: 200px;}
-        }
-        
-        .dock-item { display: flex; flex-direction: column; align-items: center; color: var(--text-muted); cursor: pointer; font-size: 0.75rem; gap: 0.4rem; transition: 0.3s; font-weight: 500;}
-        .dock-item.active { color: var(--accent); transform: translateY(-4px); }
+            .tools-grid { gap: 1rem; grid-template-columns: repeat(2, 1fr); }
+            .tool-card { min-height: 190px; padding: 1.5rem 1rem;}
+            .tool-icon { font-size: 2rem; margin-bottom: 0.8rem; filter: none; }
+            #sidebar { width: 280px; }
 
-        footer { padding: 4rem 2rem; border-top: 1px solid var(--glass-border); margin-top: auto; display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 3rem; text-align: left; background: rgba(0,0,0,0.3); padding-bottom: 7rem; }
-        .light-mode footer { background: rgba(255,255,255,0.4); }
-        .footer-link { display: block; color: var(--text-muted); text-decoration: none; margin-bottom: 1rem; cursor: pointer; transition: 0.3s; font-weight: 500;}
-        .footer-link:hover { color: var(--accent); padding-left: 8px; }
-        @media (max-width: 767px) { footer { grid-template-columns: 1fr; text-align: center; gap: 2rem;} .footer-link:hover { padding-left: 0; transform: scale(1.05); } }
+            /* Footer Mobile Fix */
+            footer { grid-template-columns: 1fr; text-align: center; gap: 2.5rem; padding: 3rem 1rem 7rem 1rem; } 
+            .footer-link:hover { padding-left: 0; transform: scale(1.05); }
+        }
     </style>
 </head>
 <body>
@@ -173,21 +212,21 @@
         <div class="search-container">
             <i class="fas fa-search search-icon"></i>
             <input type="text" id="live-search" class="search-input" placeholder="Search for tools, generators, editors..." autocomplete="off">
-            <div id="search-dropdown" class="search-results glass"></div>
+            <div id="search-dropdown" class="search-results"></div>
         </div>
-        <div style="display: flex; gap: 1.5rem; align-items: center;">
-            <button onclick="toggleTheme()" aria-label="Toggle Theme" style="background:none; border:none; color:var(--text-main); cursor:pointer; font-size:1.3rem; transition:0.3s;">
+        <div style="display: flex; gap: 1.2rem; align-items: center;">
+            <button onclick="toggleTheme()" aria-label="Toggle Theme" style="background:none; border:none; color:var(--text-main); font-size:1.4rem; cursor:pointer; padding: 5px;">
                 <i class="fas fa-moon" id="theme-icon"></i>
             </button>
-            <button id="menu-btn" onclick="toggleSidebar(event)" aria-label="Open Menu" style="background:none; border:none; color:var(--text-main); cursor:pointer; font-size:1.6rem; transition:0.3s;">
+            <button onclick="toggleSidebar(event)" aria-label="Menu" style="background:none; border:none; color:var(--text-main); font-size:1.6rem; cursor:pointer; padding: 5px;">
                 <i class="fas fa-bars-staggered"></i>
             </button>
         </div>
     </header>
 
-    <div id="sidebar" class="glass">
+    <div id="sidebar">
         <div style="text-align: right; margin-bottom: 1.5rem;">
-            <button onclick="toggleSidebar()" style="background:none; border:none; color:var(--text-muted); font-size:1.6rem; cursor:pointer; transition:0.3s;"><i class="fas fa-xmark"></i></button>
+            <button onclick="toggleSidebar()" style="background:none; border:none; color:var(--text-muted); font-size:1.6rem; cursor:pointer; padding: 5px;"><i class="fas fa-xmark"></i></button>
         </div>
         <a class="menu-item" onclick="filterCategory('All')"><i class="fas fa-house fa-fw"></i> Home / All Tools</a>
         <a class="menu-item" onclick="filterCategory('Pinned')"><i class="fas fa-thumbtack fa-fw"></i> Pinned Tools</a>
@@ -195,14 +234,14 @@
         <a class="menu-item" onclick="filterCategory('Recent')"><i class="fas fa-clock-rotate-left fa-fw"></i> Recently Used</a>
         <a class="menu-item" onclick="filterCategory('Trending')"><i class="fas fa-fire fa-fw"></i> Trending Tools</a>
         <hr style="border-color: var(--glass-border); margin: 1.5rem 0;">
-        <div class="section-title" style="font-size:0.9rem; padding-left:1.2rem; color:var(--accent); text-transform:uppercase; letter-spacing:1px;">Categories</div>
+        <div class="section-title" style="font-size:0.9rem; color:var(--accent); text-transform:uppercase; padding-left: 1.2rem; letter-spacing:1px; margin-bottom: 1rem;">Categories</div>
         <a class="menu-item" onclick="filterCategory('Social Media Tools')"><i class="fas fa-hashtag fa-fw"></i> Social Media</a>
         <a class="menu-item" onclick="filterCategory('Student Tools')"><i class="fas fa-user-graduate fa-fw"></i> Student Tools</a>
         <a class="menu-item" onclick="filterCategory('Utility Tools')"><i class="fas fa-screwdriver-wrench fa-fw"></i> Utility Tools</a>
         <a class="menu-item" onclick="filterCategory('Image Tools')"><i class="fas fa-image fa-fw"></i> Image Tools</a>
         <a class="menu-item" onclick="filterCategory('Fun & Games')"><i class="fas fa-gamepad fa-fw"></i> Fun & Games</a>
         <hr style="border-color: var(--glass-border); margin: 1.5rem 0;">
-        <a class="menu-item" onclick="openRandomTool()" style="color:var(--accent);"><i class="fas fa-dice fa-fw"></i> Random Fun Tool</a>
+        <a class="menu-item" onclick="openRandomTool()" style="color:var(--accent); font-weight: bold;"><i class="fas fa-dice fa-fw"></i> Random Fun Tool</a>
     </div>
 
     <main>
@@ -219,20 +258,19 @@
         </div>
 
         <h2 id="main-title" class="section-title"><i class="fas fa-rocket"></i> Explore All Tools</h2>
-        
         <div id="main-grid" class="tools-grid"></div>
     </main>
 
-    <div class="fab" onclick="document.getElementById('live-search').focus() || window.dispatchEvent(new KeyboardEvent('keydown', {key: 'k', ctrlKey: true}))">
+    <div class="fab hide-desktop" onclick="document.getElementById('live-search').focus() || openMobileSearch()">
         <i class="fas fa-magnifying-glass"></i>
     </div>
 
     <div class="mobile-dock">
-        <div class="dock-item active" onclick="filterCategory('All'); updateDock(this)"><i class="fas fa-house fa-lg"></i>Home</div>
-        <div class="dock-item" onclick="filterCategory('Trending'); updateDock(this)"><i class="fas fa-fire fa-lg"></i>Trending</div>
-        <div class="dock-item" onclick="filterCategory('Saved'); updateDock(this)"><i class="fas fa-bookmark fa-lg"></i>Saved</div>
-        <div class="dock-item" onclick="filterCategory('Recent'); updateDock(this)"><i class="fas fa-clock-rotate-left fa-lg"></i>Recent</div>
-        <div class="dock-item" onclick="toggleSidebar(event); updateDock(this)"><i class="fas fa-bars-staggered fa-lg"></i>Menu</div>
+        <div class="dock-item active" onclick="filterCategory('All'); updateDock(this)"><i class="fas fa-house fa-lg"></i><span>Home</span></div>
+        <div class="dock-item" onclick="filterCategory('Trending'); updateDock(this)"><i class="fas fa-fire fa-lg"></i><span>Trending</span></div>
+        <div class="dock-item" onclick="filterCategory('Saved'); updateDock(this)"><i class="fas fa-bookmark fa-lg"></i><span>Saved</span></div>
+        <div class="dock-item" onclick="filterCategory('Recent'); updateDock(this)"><i class="fas fa-clock-rotate-left fa-lg"></i><span>Recent</span></div>
+        <div class="dock-item" onclick="toggleSidebar(event); updateDock(this)"><i class="fas fa-bars-staggered fa-lg"></i><span>Menu</span></div>
     </div>
 
     <footer>
@@ -242,9 +280,9 @@
         </div>
         <div>
             <h3 style="margin-bottom: 1.5rem; font-weight:700;">Navigation</h3>
-            <a class="footer-link" onclick="filterCategory('All'); window.scrollTo(0,0);"><i class="fas fa-angle-right" style="font-size:0.8em; margin-right:8px;"></i> Home</a>
-            <a class="footer-link" onclick="filterCategory('Trending'); window.scrollTo(0,0);"><i class="fas fa-angle-right" style="font-size:0.8em; margin-right:8px;"></i> Trending Tools</a>
-            <a class="footer-link" onclick="filterCategory('Saved'); window.scrollTo(0,0);"><i class="fas fa-angle-right" style="font-size:0.8em; margin-right:8px;"></i> Saved Tools</a>
+            <a class="footer-link" onclick="filterCategory('All'); window.scrollTo({top:0, behavior:'smooth'});"><i class="fas fa-angle-right" style="font-size:0.8em; margin-right:8px;"></i> Home</a>
+            <a class="footer-link" onclick="filterCategory('Trending'); window.scrollTo({top:0, behavior:'smooth'});"><i class="fas fa-angle-right" style="font-size:0.8em; margin-right:8px;"></i> Trending Tools</a>
+            <a class="footer-link" onclick="filterCategory('Saved'); window.scrollTo({top:0, behavior:'smooth'});"><i class="fas fa-angle-right" style="font-size:0.8em; margin-right:8px;"></i> Saved Tools</a>
         </div>
         <div>
             <h3 style="margin-bottom: 1.5rem; font-weight:700;">Legal & Info</h3>
@@ -257,34 +295,34 @@
     
     <div id="tool-spa-panel" class="tool-panel">
         <div class="tool-header">
-            <h3 id="active-tool-title" style="font-weight:700; display:flex; align-items:center; gap:12px; font-size: 1.2rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><i id="active-tool-icon"></i> <span>Tool Name</span></h3>
-            <div style="display:flex; gap: 1rem; flex-shrink: 0;">
-                <button class="btn-back" style="background:var(--glass-bg); border:1px solid var(--glass-border); color:var(--text-main);" onclick="openInNewTab()" aria-label="Open in new tab"><i class="fas fa-arrow-up-right-from-square"></i></button>
-                <button class="btn-back" onclick="closeTool()"><i class="fas fa-arrow-left"></i> <span class="hide-mobile">Back to Hub</span></button>
+            <h3 id="active-tool-title" style="font-weight:700; font-size: 1.1rem; display: flex; align-items: center; gap: 10px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;"><i id="active-tool-icon"></i> <span style="overflow: hidden; text-overflow: ellipsis;">Tool Name</span></h3>
+            <div style="display:flex; gap: 0.8rem; flex-shrink: 0;">
+                <button class="btn-back" style="background:var(--glass-bg); border:1px solid var(--glass-border); color:var(--text-main);" onclick="openInNewTab()"><i class="fas fa-arrow-up-right-from-square"></i></button>
+                <button class="btn-back" onclick="closeTool()"><i class="fas fa-xmark"></i> <span class="hide-mobile">Close</span></button>
             </div>
         </div>
         <div class="iframe-wrapper">
-            <div class="iframe-loading"><i class="fas fa-circle-notch fa-spin fa-2x" style="color:var(--accent);"></i><p>Booting Tool...</p></div>
-            <iframe id="tool-iframe" class="iframe-container" src=""></iframe>
+            <div class="iframe-loading"><i class="fas fa-circle-notch fa-spin fa-2x" style="color:var(--accent);"></i><p style="margin-top:10px;">Booting...</p></div>
+            <iframe id="tool-iframe" class="iframe-container" src="" allowfullscreen></iframe>
         </div>
     </div>
 
     <div id="long-press-modal" class="modal-overlay" onclick="closeModals(event)">
-        <div class="glass long-press-menu" onclick="event.stopPropagation()">
-            <h4 style="padding: 0.5rem 0.8rem; font-size: 0.85rem; color: var(--text-muted); border-bottom: 1px solid var(--glass-border); margin-bottom: 0.8rem; text-transform: uppercase; letter-spacing: 1px;">Quick Actions</h4>
+        <div class="long-press-menu" onclick="event.stopPropagation()">
+            <h4 style="padding: 0.5rem 0.8rem; font-size: 0.85rem; color: var(--text-muted); border-bottom: 1px solid var(--glass-border); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 1px;">Quick Actions</h4>
             <button class="long-press-btn" onclick="handleLongPressAction('pin')"><i class="fas fa-thumbtack fa-fw"></i> Pin to Home</button>
             <button class="long-press-btn" onclick="handleLongPressAction('save')"><i class="fas fa-bookmark fa-fw"></i> Save Tool</button>
             <button class="long-press-btn" onclick="handleLongPressAction('copy')"><i class="fas fa-link fa-fw"></i> Copy Link</button>
         </div>
     </div>
 
-    <div id="cmd-modal" class="modal-overlay" onclick="closeModals(event)">
-        <div id="cmd-palette" class="glass" onclick="event.stopPropagation()">
-            <div style="position:relative;">
-                <i class="fas fa-magnifying-glass" style="position:absolute; left:1.5rem; top:50%; transform:translateY(-50%); color:var(--accent); font-size:1.3rem;"></i>
-                <input type="text" id="cmd-input" class="search-input" placeholder="Search tools... (Esc to close)" style="font-size: 1.2rem; padding: 1.2rem 1.2rem 1.2rem 4rem; border-radius:20px;" autocomplete="off">
+    <div id="mobile-search-modal" class="modal-overlay" onclick="closeModals(event)">
+        <div class="long-press-menu" style="width: 90%; max-width: 500px; padding: 1.5rem; margin-top: -15vh;" onclick="event.stopPropagation()">
+            <div style="position:relative; margin-bottom: 1rem;">
+                <i class="fas fa-magnifying-glass" style="position:absolute; left:1.2rem; top:50%; transform:translateY(-50%); color:var(--accent); font-size:1.2rem;"></i>
+                <input type="text" id="mobile-search-input" placeholder="Search tools..." style="width: 100%; padding: 1rem 1rem 1rem 3.5rem; border-radius: 20px; border: 1px solid var(--glass-border); background: var(--glass-bg); color: var(--text-main); font-size: 1.1rem; outline: none;">
             </div>
-            <div id="cmd-results" style="margin-top: 1.5rem; max-height: 400px; overflow-y: auto;"></div>
+            <div id="mobile-search-results" style="max-height: 50vh; overflow-y: auto;"></div>
         </div>
     </div>
 
@@ -328,7 +366,7 @@
             { path: "PackSurpriseGift/", cat: "Fun & Games", icon: "fas fa-gift", desc: "Send virtual 3D surprise gift boxes to friends.", tags: "gift box surprise fun 3d present" },
             { path: "NexusX.com/", cat: "Utility Tools", icon: "fas fa-globe", desc: "Explore a premium futuristic web interface mockup.", tags: "nexus web UI mockup simulator" },
             { path: "NexusGames/", cat: "Fun & Games", icon: "fas fa-gamepad", desc: "A curated collection of addictive mini-games.", tags: "games mini play fun online arcade" },
-            { path: "SyncBoard-P2P/", cat: "Utility Tools", icon: "fas fa-share-nodes", desc: "Real-time peer-to-peer shared whiteboard.", draw: "whiteboard sync draw collaborate p2p" },
+            { path: "SyncBoard-P2P/", cat: "Utility Tools", icon: "fas fa-share-nodes", desc: "Real-time peer-to-peer shared whiteboard.", tags: "whiteboard sync draw collaborate p2p" },
             { path: "UltraFunkVisualizer/", cat: "Fun & Games", icon: "fas fa-music", desc: "Dynamic audio visualizer reacting to your voice.", tags: "audio visualizer music fun mic" },
             { path: "FunkVisual/", cat: "Fun & Games", icon: "fas fa-wave-square", desc: "Generate trippy visual effects and animations.", tags: "visual effects trippy fun animation" },
             { path: "SalaryCalculator/", cat: "Utility Tools", icon: "fas fa-money-bill-trend-up", desc: "Calculate your take-home pay and tax deductions.", tags: "salary money tax calculator utility income" }
@@ -338,10 +376,7 @@
             let id = t.path.replace(/\//g, "").toLowerCase();
             let name = t.path.replace(/\//g, "").replace(/([A-Z])/g, ' $1').trim();
             if(name.includes("S A M P L E")) name = "Gov Letter Generator";
-            return {
-                id: id, name: name, url: baseURL + t.path, icon: t.icon, desc: t.desc, 
-                category: t.cat, tags: t.tags || "", uses: Math.floor(Math.random() * 50000) + 5000 
-            };
+            return { id, name, url: baseURL + t.path, icon: t.icon, desc: t.desc, category: t.cat, tags: t.tags || "", uses: Math.floor(Math.random() * 50000) + 1000 };
         });
 
         function getStorage(key) { return JSON.parse(localStorage.getItem(key)) || []; }
@@ -350,29 +385,49 @@
         const mainGrid = document.getElementById('main-grid');
         const pinnedGrid = document.getElementById('pinned-grid');
         const popularGrid = document.getElementById('popular-grid');
-        const pinnedSection = document.getElementById('pinned-section');
-        const popularSection = document.getElementById('popular-section');
-        const mainTitle = document.getElementById('main-title');
         
         function renderTools(toolsArray, container) {
             container.innerHTML = '';
             toolsArray.forEach(tool => {
                 const card = document.createElement('div');
                 card.className = 'tool-card glass';
-                card.onclick = () => openTool(tool.id);
                 
                 let pressTimer;
                 let isScrolling = false;
-                const startPress = (e) => { 
-                    isScrolling = false;
-                    pressTimer = setTimeout(() => { if(!isScrolling) openLongPressMenu(tool); }, 800); 
-                };
-                const cancelPress = () => { clearTimeout(pressTimer); };
-                const markScroll = () => { isScrolling = true; cancelPress(); };
+                let longPressTriggered = false;
 
-                card.addEventListener('mousedown', startPress); card.addEventListener('mouseup', cancelPress); card.addEventListener('mouseleave', cancelPress);
-                card.addEventListener('touchstart', startPress, {passive: true}); card.addEventListener('touchend', cancelPress); card.addEventListener('touchmove', markScroll, {passive: true});
-                card.oncontextmenu = (e) => { e.preventDefault(); return false; }; 
+                // BUG FIX: Perfect Scroll vs Click logic
+                card.addEventListener('touchstart', () => {
+                    isScrolling = false;
+                    longPressTriggered = false;
+                    pressTimer = setTimeout(() => {
+                        if(!isScrolling) {
+                            longPressTriggered = true;
+                            openLongPressMenu(tool);
+                        }
+                    }, 500);
+                }, {passive: true});
+
+                card.addEventListener('touchmove', () => {
+                    isScrolling = true;
+                    clearTimeout(pressTimer);
+                }, {passive: true});
+
+                card.addEventListener('touchend', () => {
+                    clearTimeout(pressTimer);
+                }, {passive: true});
+                
+                card.oncontextmenu = (e) => { 
+                    e.preventDefault(); 
+                    openLongPressMenu(tool);
+                    return false; 
+                };
+
+                // Normal click
+                card.onclick = (e) => {
+                    if(longPressTriggered) return; 
+                    openTool(tool.id);
+                };
 
                 card.innerHTML = `
                     <div class="tool-uses"><i class="fas fa-eye"></i> ${tool.uses.toLocaleString()}</div>
@@ -382,29 +437,38 @@
                 `;
                 container.appendChild(card);
             });
-            if(toolsArray.length === 0) container.innerHTML = `<p style="grid-column: 1/-1; text-align:center; color: var(--text-muted); padding: 3rem; font-size: 1.1rem;"><i class="fas fa-ghost fa-2x" style="margin-bottom:1rem; opacity:0.5;"></i><br>No tools found here.</p>`;
+            if(toolsArray.length === 0) container.innerHTML = `<p style="grid-column: 1/-1; text-align:center; opacity:0.6; padding: 3rem; font-size: 1.1rem;"><i class="fas fa-ghost fa-2x" style="margin-bottom:1rem;"></i><br>No tools found.</p>`;
         }
-
-        function renderPopular() { renderTools([...tools].sort((a, b) => b.uses - a.uses).slice(0, 4), popularGrid); }
 
         function renderHome() {
             const pinnedIds = getStorage('pinnedTools');
             const pinnedTools = tools.filter(t => pinnedIds.includes(t.id));
-            if(pinnedTools.length > 0) { pinnedSection.style.display = 'block'; renderTools(pinnedTools, pinnedGrid); } else { pinnedSection.style.display = 'none'; }
-            popularSection.style.display = 'block'; renderPopular();
-            renderTools(tools, mainGrid); mainTitle.innerHTML = `<i class="fas fa-rocket"></i> Explore All Tools`;
+            
+            document.getElementById('pinned-section').style.display = pinnedTools.length > 0 ? 'block' : 'none';
+            if(pinnedTools.length > 0) renderTools(pinnedTools, pinnedGrid);
+            
+            document.getElementById('popular-section').style.display = 'block';
+            let limit = window.innerWidth < 768 ? 4 : 4; 
+            renderTools([...tools].sort((a, b) => b.uses - a.uses).slice(0, limit), popularGrid);
+            
+            document.getElementById('main-title').innerHTML = `<i class="fas fa-rocket"></i> Explore All Tools`;
+            renderTools(tools, mainGrid);
         }
 
         function filterCategory(cat) {
-            toggleSidebar(false);
-            pinnedSection.style.display = 'none'; popularSection.style.display = 'none'; 
-            let filtered = [];
+            document.getElementById('sidebar').classList.remove('open');
+            document.getElementById('pinned-section').style.display = 'none'; 
+            document.getElementById('popular-section').style.display = 'none'; 
+            
             if (cat === 'All') { renderHome(); return; }
-            else if (cat === 'Saved') { filtered = tools.filter(t => getStorage('savedTools').includes(t.id)); mainTitle.innerHTML = `<i class="fas fa-bookmark" style="color:var(--accent);"></i> Saved Tools`; }
-            else if (cat === 'Pinned') { filtered = tools.filter(t => getStorage('pinnedTools').includes(t.id)); mainTitle.innerHTML = `<i class="fas fa-thumbtack" style="color:var(--accent);"></i> Pinned Tools`; }
-            else if (cat === 'Recent') { filtered = getStorage('recentTools').map(id => tools.find(t => t.id === id)).filter(Boolean); mainTitle.innerHTML = `<i class="fas fa-clock-rotate-left" style="color:var(--accent);"></i> Recently Used`; }
-            else if (cat === 'Trending') { filtered = [...tools].sort((a,b) => b.uses - a.uses).slice(0, 12); mainTitle.innerHTML = `<i class="fas fa-fire" style="color:#ef4444;"></i> Trending Tools`; }
-            else { filtered = tools.filter(t => t.category === cat); mainTitle.innerHTML = `<i class="fas fa-folder-open" style="color:var(--accent);"></i> ${cat}`; }
+            
+            let filtered = [];
+            if (cat === 'Saved') { filtered = tools.filter(t => getStorage('savedTools').includes(t.id)); document.getElementById('main-title').innerHTML = `<i class="fas fa-bookmark" style="color:var(--accent);"></i> Saved Tools`; }
+            else if (cat === 'Pinned') { filtered = tools.filter(t => getStorage('pinnedTools').includes(t.id)); document.getElementById('main-title').innerHTML = `<i class="fas fa-thumbtack" style="color:var(--accent);"></i> Pinned Tools`; }
+            else if (cat === 'Recent') { filtered = getStorage('recentTools').map(id => tools.find(t => t.id === id)).filter(Boolean); document.getElementById('main-title').innerHTML = `<i class="fas fa-clock-rotate-left" style="color:var(--accent);"></i> Recently Used`; }
+            else if (cat === 'Trending') { filtered = [...tools].sort((a,b) => b.uses - a.uses).slice(0, 12); document.getElementById('main-title').innerHTML = `<i class="fas fa-fire" style="color:#ef4444;"></i> Trending Tools`; }
+            else { filtered = tools.filter(t => t.category === cat); document.getElementById('main-title').innerHTML = `<i class="fas fa-folder-open" style="color:var(--accent);"></i> ${cat}`; }
+            
             renderTools(filtered, mainGrid); 
         }
 
@@ -412,30 +476,6 @@
             document.querySelectorAll('.dock-item').forEach(el => el.classList.remove('active'));
             if(clickedItem) clickedItem.classList.add('active');
         }
-
-        const liveSearch = document.getElementById('live-search');
-        const searchDropdown = document.getElementById('search-dropdown');
-        
-        liveSearch.addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase();
-            if(query.length === 0) { searchDropdown.style.display = 'none'; return; }
-            const results = tools.filter(t => t.name.toLowerCase().includes(query) || t.id.includes(query) || t.category.toLowerCase().includes(query) || t.tags.includes(query));
-            searchDropdown.innerHTML = '';
-            results.slice(0, 6).forEach(tool => {
-                const div = document.createElement('div');
-                div.style.cssText = "padding:1.2rem; cursor:pointer; border-bottom:1px solid var(--glass-border); display:flex; align-items:center; gap:15px; transition:0.3s;";
-                div.innerHTML = `<i class="${tool.icon}" style="color:var(--accent); font-size:1.5rem; width:30px; text-align:center;"></i> <div><div style="font-weight:700; font-size:1.05rem;">${tool.name}</div><div style="font-size:0.8rem; color:var(--text-muted); margin-top:3px;">${tool.category}</div></div>`;
-                div.onmouseover = () => div.style.backgroundColor = "var(--glass-hover)"; div.onmouseout = () => div.style.backgroundColor = "transparent";
-                div.onclick = () => { openTool(tool.id); searchDropdown.style.display = 'none'; liveSearch.value=''; };
-                searchDropdown.appendChild(div);
-            });
-            searchDropdown.style.display = results.length > 0 ? 'block' : 'none';
-        });
-
-        document.addEventListener('click', (e) => {
-            if(!e.target.closest('.search-container')) searchDropdown.style.display = 'none';
-            if(!e.target.closest('#sidebar') && !e.target.closest('#menu-btn')) document.getElementById('sidebar').classList.remove('open');
-        });
 
         let currentOpenTool = null;
         function openTool(id) {
@@ -455,7 +495,6 @@
 
             document.getElementById('tool-spa-panel').classList.add('active');
             document.body.style.overflow = 'hidden'; 
-            
             window.history.pushState(null, null, `#${id}`);
             currentOpenTool = tool;
         }
@@ -463,35 +502,36 @@
         function closeTool() {
             document.getElementById('tool-spa-panel').classList.remove('active');
             document.body.style.overflow = ''; 
-            setTimeout(() => { document.getElementById('tool-iframe').src = ""; }, 500); 
+            setTimeout(() => { document.getElementById('tool-iframe').src = ""; }, 400); 
             window.history.replaceState(null, null, window.location.pathname); 
-            currentOpenTool = null; renderHome(); 
+            currentOpenTool = null;
+            if(document.getElementById('pinned-section').style.display !== 'none') renderHome();
         }
 
         function openInNewTab() { if(currentOpenTool) window.open(currentOpenTool.url, '_blank'); }
         
-        // FIX: Random Tool will only select from the last 5 tools
         function openRandomTool() { 
-            const last5Tools = tools.slice(-5);
-            const randomTool = last5Tools[Math.floor(Math.random() * last5Tools.length)];
+            const randomTool = tools[Math.floor(Math.random() * tools.length)];
             openTool(randomTool.id); 
             toggleSidebar(false); 
         }
 
         window.addEventListener('popstate', () => {
             const hash = window.location.hash.replace('#', '');
-            if(hash) { openTool(hash); } else { document.getElementById('tool-spa-panel').classList.remove('active'); document.body.style.overflow = ''; }
+            if(hash) openTool(hash); else { document.getElementById('tool-spa-panel').classList.remove('active'); document.body.style.overflow = ''; }
         });
 
         let targetLongPressTool = null;
         function openLongPressMenu(tool) {
             targetLongPressTool = tool;
-            document.getElementById('long-press-modal').style.display = 'flex';
+            const modal = document.getElementById('long-press-modal');
+            modal.classList.add('show');
         }
 
         function handleLongPressAction(action) {
             if(!targetLongPressTool) return;
             const id = targetLongPressTool.id;
+            
             if(action === 'save') {
                 let saved = getStorage('savedTools');
                 if(!saved.includes(id)) { saved.push(id); setStorage('savedTools', saved); alert(targetLongPressTool.name + " Saved!");} else { alert("Tool already saved."); }
@@ -501,32 +541,9 @@
                 if(!pinned.includes(id)) { pinned.push(id); setStorage('pinnedTools', pinned); alert(targetLongPressTool.name + " Pinned to Home!");} else { alert("Tool already pinned."); }
             }
             if(action === 'copy') { navigator.clipboard.writeText(baseURL + "#" + id); alert("Link copied to clipboard!"); }
-            closeModals(); if(document.getElementById('pinned-section').style.display !== 'none') renderHome();
-        }
-
-        const cmdModal = document.getElementById('cmd-modal');
-        const cmdInput = document.getElementById('cmd-input');
-        const cmdResults = document.getElementById('cmd-results');
-
-        window.addEventListener('keydown', (e) => {
-            if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); cmdModal.style.display = 'flex'; cmdInput.focus(); renderCmdResults(''); }
-            if(e.key === 'Escape') { closeModals(); }
-        });
-
-        cmdInput.addEventListener('input', (e) => renderCmdResults(e.target.value.toLowerCase()));
-
-        function renderCmdResults(query) {
-            cmdResults.innerHTML = '';
-            const results = tools.filter(t => t.name.toLowerCase().includes(query) || t.category.toLowerCase().includes(query) || t.tags.includes(query));
-            results.slice(0, 10).forEach(tool => {
-                const div = document.createElement('div');
-                div.className = 'glass';
-                div.style.cssText = "padding:1.2rem; margin-bottom:1rem; cursor:pointer; display:flex; align-items:center; transition:0.3s; border-radius:16px;";
-                div.innerHTML = `<i class="${tool.icon}" style="margin-right:20px; font-size:1.8rem; color:var(--accent); width:40px; text-align:center; filter: drop-shadow(0 0 5px var(--glow));"></i> <div><div style="font-weight:700; font-size:1.15rem;">${tool.name}</div><div style="font-size:0.85rem; color:var(--text-muted); margin-top:4px;">${tool.category}</div></div>`;
-                div.onmouseover = () => div.style.transform = "translateY(-3px)"; div.onmouseout = () => div.style.transform = "translateY(0)";
-                div.onclick = () => { openTool(tool.id); closeModals(); cmdInput.value=''; };
-                cmdResults.appendChild(div);
-            });
+            
+            closeModals(); 
+            if(document.getElementById('pinned-section').style.display !== 'none') renderHome();
         }
 
         function toggleSidebar(e) {
@@ -544,10 +561,53 @@
             }
         }
 
+        function openMobileSearch() {
+            document.getElementById('mobile-search-modal').classList.add('show');
+            setTimeout(() => document.getElementById('mobile-search-input').focus(), 100);
+        }
+
+        document.getElementById('mobile-search-input').addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            const resultsDiv = document.getElementById('mobile-search-results');
+            resultsDiv.innerHTML = '';
+            if(!query) return;
+            
+            tools.filter(t => t.name.toLowerCase().includes(query) || t.tags.includes(query)).slice(0,8).forEach(t => {
+                const div = document.createElement('div');
+                div.style.cssText = "padding: 1.2rem; border-bottom: 1px solid var(--glass-border); color: var(--text-main); font-size: 1.05rem; display: flex; align-items: center; gap: 15px; font-weight:500;";
+                div.innerHTML = `<i class="${t.icon}" style="color:var(--accent); font-size:1.4rem; width:30px; text-align:center;"></i> ${t.name}`;
+                div.onclick = () => { openTool(t.id); closeModals(); document.getElementById('mobile-search-input').value=''; };
+                resultsDiv.appendChild(div);
+            });
+        });
+
+        // Desktop Search
+        const liveSearch = document.getElementById('live-search');
+        const searchDropdown = document.getElementById('search-dropdown');
+        let searchTimeout;
+        liveSearch.addEventListener('input', (e) => {
+            clearTimeout(searchTimeout);
+            searchTimeout = setTimeout(() => {
+                const query = e.target.value.toLowerCase().trim();
+                if(query.length === 0) { searchDropdown.style.display = 'none'; return; }
+                const results = tools.filter(t => t.name.toLowerCase().includes(query) || t.id.includes(query) || t.category.toLowerCase().includes(query) || t.tags.includes(query));
+                searchDropdown.innerHTML = '';
+                results.slice(0, 6).forEach(tool => {
+                    const div = document.createElement('div');
+                    div.style.cssText = "padding:1.2rem; cursor:pointer; border-bottom:1px solid var(--glass-border); display:flex; align-items:center; gap:15px; transition:0.3s;";
+                    div.innerHTML = `<i class="${tool.icon}" style="color:var(--accent); font-size:1.4rem; width:30px; text-align:center;"></i> <div><div style="font-weight:600; font-size:1rem;">${tool.name}</div><div style="font-size:0.8rem; color:var(--text-muted); margin-top:3px;">${tool.category}</div></div>`;
+                    div.onmouseover = () => div.style.backgroundColor = "var(--glass-hover)"; div.onmouseout = () => div.style.backgroundColor = "transparent";
+                    div.onclick = () => { openTool(tool.id); searchDropdown.style.display = 'none'; liveSearch.value=''; };
+                    searchDropdown.appendChild(div);
+                });
+                searchDropdown.style.display = results.length > 0 ? 'block' : 'none';
+            }, 200); 
+        });
+
         function closeModals(e) {
             if(e && e.target !== e.currentTarget) return; 
-            document.getElementById('long-press-modal').style.display = 'none';
-            document.getElementById('cmd-modal').style.display = 'none';
+            document.querySelectorAll('.modal-overlay').forEach(m => m.classList.remove('show'));
+            searchDropdown.style.display = 'none';
         }
 
         window.onload = () => {
